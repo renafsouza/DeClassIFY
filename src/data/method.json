@@ -1,5 +1,5 @@
-const methodRules = {
- methodAnalyticalRules: [
+{
+ "methodAnalyticalRules":[
  "recommended analytical approach",
  "an analytical lens",
  "descriptive analytical",
@@ -113,9 +113,9 @@ const methodRules = {
  "proposed analytical framework",
  "analytical subblocks",
  "powerful analytical tool",
- "data-driven analytical system",
+ "data-driven analytical system"
 ],
-methodCausalRules: [
+    "methodCausalRules":[
  "dynamic causal monitoring",
  "from causal tracing",
  "uses causal metadata",
@@ -276,9 +276,9 @@ methodCausalRules: [
  "scalable causal consistency",
  "single causal factor",
  "counterfactual causal thinking",
- "causal efects",
+ "causal efects"
 ],
-methodCause_and_effectRules: [
+    "methodCause_and_effectRules":[
  "useful cause-and-effect relationships",
  "not cause-and-effect relationship",
  "cause-and-effect relationships",
@@ -287,9 +287,9 @@ methodCause_and_effectRules: [
  "understand cause-and-effect",
  "of cause-and-effect to",
  "individual cause-and-effect relationships",
- "cause-and-effect relationships",
+ "cause-and-effect relationships"
 ],
-methodConceptRules: [
+    "methodConceptRules":[
  "study concept implementatio",
  "window concept thataddstheco",
  "novel concept named",
@@ -392,9 +392,9 @@ methodConceptRules: [
  "processor concept creates",
  "concept combinations",
  "strong concept may",
- "eractive concept",
+ "eractive concept"
 ],
-methodConceptualRules: [
+    "methodConceptualRules":[
  "conceptual understanding",
  "other conceptual framings",
  "re-negotiate conceptual relationships",
@@ -541,9 +541,9 @@ methodConceptualRules: [
  "for conceptual analysis",
  "primarily conceptual contribution",
  "some conceptual perspectives",
- "additional conceptual register",
+ "additional conceptual register"
 ],
-methodConstructiveRules: [
+    "methodConstructiveRules":[
  "constructive behavior",
  "contextual constructive approach",
  "prove constructive lower",
@@ -569,10 +569,9 @@ methodConstructiveRules: [
  "introduction constructive type",
  "yield constructive solutions",
  "constructive debate",
- "provide constructive opportunities",
+ "provide constructive opportunities"
 ],
-methodDescriptiveRules: [
-
+    "methodDescriptiveRules":[
  "descriptive models",
  "descriptive analytics",
  "slow-paced descriptive story",
@@ -625,16 +624,16 @@ methodDescriptiveRules: [
  "descriptive answers",
  "exploratory descriptive analysis",
  "providing descriptive overviews",
- "obtain descriptive information",
+ "obtain descriptive information"
 ],
-methodEmpiricRules: [
+    "methodEmpiricRules":[
  "how empiric could",
  "of empiric over",
  "the empiric calculation",
  "primitive empiric that",
- "empiric parameters",
+ "empiric parameters"
 ],
-methodEngineeringRules: [
+    "methodEngineeringRules":[
  "engineering practice",
  "binary engineering challenge",
  "our engineering toolkits",
@@ -748,9 +747,9 @@ methodEngineeringRules: [
  "engineering systems",
  "server engineering",
  "provided engineering mobile",
- "based engineering provide",
+ "based engineering provide"
 ],
-methodEvaluationRules: [
+    "methodEvaluationRules":[
  "evaluation resumes",
  "package evaluation objective",
  "an evaluation derivation",
@@ -1209,9 +1208,9 @@ methodEvaluationRules: [
  "quality evaluation",
  "theoretical evaluation",
  "trees evaluation",
- "each evaluation",
+ "each evaluation"
 ],
-methodEvaluativeRules: [
+    "methodEvaluativeRules":[
  "their evaluative measures",
  "purely evaluative",
  "this evaluative criterion",
@@ -1230,9 +1229,9 @@ methodEvaluativeRules: [
  "evaluative aspects",
  "evaluative work",
  "real-time evaluative feedback",
- "complex evaluative sensemaking",
+ "complex evaluative sensemaking"
 ],
-methodExperimentalRules: [
+    "methodExperimentalRules":[
  "shared experimental platform",
  "experimental phrases",
  "represent experimental condition",
@@ -1462,9 +1461,9 @@ methodExperimentalRules: [
  "experimental dataset",
  "anti-patterns experimental subjects",
  "experimental verification",
- "count experimental configuration",
+ "count experimental configuration"
 ],
-methodExploratoryRules: [
+    "methodExploratoryRules":[
  "an exploratory study",
  "qualitative exploratory analysis",
  "exploratory programming",
@@ -1532,9 +1531,9 @@ methodExploratoryRules: [
  "more exploratory setup",
  "this exploratory paper",
  "these exploratory results",
- "open-ended exploratory nature",
+ "open-ended exploratory nature"
 ],
-methodFormalRules: [
+    "methodFormalRules":[
  "formal aspects",
  "adequate formal mathematical",
  "engineering formal interaction",
@@ -1672,9 +1671,9 @@ methodFormalRules: [
  "formal certification",
  "well-known formal requirement",
  "submissions formal guarantees",
- "automated formal synthesis",
+ "automated formal synthesis"
 ],
-methodInvestigateRules: [
+    "methodInvestigateRules":[
  "immediately investigate your",
  "that investigate quality",
  "systematically investigate",
@@ -1726,10 +1725,9 @@ methodInvestigateRules: [
  "empirically investigate multiple",
  "investigate video",
  "investigate techniques",
- "investigate heterogeneous",
+ "investigate heterogeneous"
 ],
-methodInvestigativeRules: [
-
+    "methodInvestigativeRules":[
  "clear investigative goal",
  "investigative goals",
  "incident investigative method",
@@ -1760,9 +1758,9 @@ methodInvestigativeRules: [
  "their investigative",
  "in-office investigative ces",
  "subtle investigative problem",
- "investigative lens",
+ "investigative lens"
 ],
-methodMathemathicalRules: [
+    "methodMathemathicalRules":[
  "via math into",
  "math errors",
  "computer-based math game",
@@ -1786,9 +1784,9 @@ methodMathemathicalRules: [
  "intel math kernel",
  "math coding",
  "floating-point math",
- "rounded math libraries",
+ "rounded math libraries"
 ],
-methodNormativeRules: [
+    "methodNormativeRules":[
  "normative based",
  "reproduce normative constraints",
  "normative frames",
@@ -1828,12 +1826,12 @@ methodNormativeRules: [
  "involve normative design",
  "normative models",
  "previous normative efforts",
- "normative assumptions",
+ "normative assumptions"
 ],
-methodProblem_orientedRules: [
- "problem-oriented solutions",
+    "methodProblem_orientedRules":[
+ "problem-oriented solutions"
 ],
-methodProblem_solvingRules: [
+    "methodProblem_solvingRules":[
  "contextualised problem-solving",
  "creative problem-solving throughout",
  "decreased problem-solving transfer",
@@ -1880,9 +1878,9 @@ methodProblem_solvingRules: [
  "community problem-solving over",
  "with problem-solving was",
  "distributed problem-solving activities",
- "learn problem-solving procedures",
+ "learn problem-solving procedures"
 ],
-methodScientificRules: [
+    "methodScientificRules":[
  "source scientific tools",
  "scientific approaches",
  "scientific programming",
@@ -2077,9 +2075,9 @@ methodScientificRules: [
  "scientific domains",
  "outstanding scientific challenge",
  "define scientific problem",
- "data-oriented scientific initiative",
+ "data-oriented scientific initiative"
 ],
-methodTheoreticalRules: [
+    "methodTheoreticalRules":[
  "uncovering theoretical continuities",
  "theoretical understanding",
  "theoretical terms",
@@ -2230,6 +2228,6 @@ methodTheoreticalRules: [
  "theoretical research",
  "theoretical traditions",
  "their theoretical maxima",
- "theoretical conceptions",
-],
-};
+ "theoretical conceptions"
+]
+}
