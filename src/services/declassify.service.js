@@ -1,5 +1,18 @@
-import {natureAppliedRules, naturePureRules} from '../data/nature.json'
 import {
+    nature,
+    method,
+    methodological,
+    validation_strategy,
+    data_nature,
+    environment,
+    proof,
+    purpose,
+    validation_result,
+    secondary_proof
+} from '../rules/rules.json'
+
+const {natureAppliedRules, naturePureRules} = nature
+const {
     methodAnalyticalRules, methodCausalRules, methodCause_and_effectRules,
     methodConceptRules, methodConceptualRules, methodConstructiveRules,
     methodDescriptiveRules, methodEmpiricRules, methodEngineeringRules,
@@ -8,14 +21,14 @@ import {
     methodInvestigativeRules, methodMathemathicalRules, methodNormativeRules,
     methodProblem_orientedRules, methodProblem_solvingRules, methodScientificRules,
     methodTheoreticalRules
-} from '../data/method.json'
-import {
+} = method
+const {
     methodologicalControl_modelRules, methodologicalHistoricalRules, methodologicalHistoricRules,
     methodologicalModelingRules, methodologicalObservationalRules,
     methodologicalProcess_analysisRules, methodologicalProcessualRules,
     methodologicalPrototypeRules, methodologicalSimulationRules
-} from '../data/methodological.json'
-import {
+} = methodological
+const {
     validation_strategyPilotRules, validation_strategyComparativeRules,
     validation_strategyProtocol_analysisRules, validation_strategyObservationalRules,
     validation_strategyProject_monitoringRules, validation_strategyMeta_analysisRules,
@@ -28,27 +41,27 @@ import {
     validation_strategyGrounded_theoryRules, validation_strategyReplicationRules,
     validation_strategyCase_studyRules, validation_strategyAction_researchRules,
     validation_strategySecondary_dataRules
-} from '../data/validation_strategy.json'
-import {
+} = validation_strategy
+const {
     data_natureCross_sectionalRules, data_natureCross_sectionRules,
     data_natureLongitudinalRules, data_natureQualitativeRules,
     data_natureQuantitativeRules
-} from '../data/data_nature.json'
-import {
+} = data_nature
+const {
     environmentIn_vitroRules, environmentIn_vivoRules, environmentRealRules,
     environmentReal_worldRules, environmentSimulatedRules
-} from '../data/environment.json';
-import {proofAbductionRules, proofDeductionRules, proofInductionRules} from '../data/proof.json';
-import {
+} = environment
+const {proofAbductionRules, proofDeductionRules, proofInductionRules} = proof
+const {
     purposeBehavioralRules, purposeCritiqueRules, purposeDesign_scienceRules,
     purposeInterpretiveRules
-} from '../data/purpose.json'
-import {
+} = purpose
+const {
     validation_resultCost_effectivenessRules, validation_resultEffectivenessRules,
     validation_resultEfficiencyRules, validation_resultOperationalizationRules,
     validation_resultUsabilityRules
-} from '../data/validation_result.json'
-import {secondary_proofProofRules, secondary_proofRebuttalRules} from '../data/secondary_proof.json'
+} = validation_result
+const {secondary_proofProofRules, secondary_proofRebuttalRules} = secondary_proof
 
 function getMaxLoc(obj) {
     let maxKey = null;
