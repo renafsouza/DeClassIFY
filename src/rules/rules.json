@@ -1,12 +1,12 @@
 {
   "environment": {
-    "environmentIn_vitroRules": [
+    "inVitro": [
       "from in vitro to",
       "the in vitro benchmarks",
       "example in vitro"
     ],
-    "environmentIn_vivoRules": [
-      "though in vivo codes",
+    "inVivo": [
+      "evolução das tecnologias",
       "in vivo spam",
       "in vivo process",
       "capture in vivo measurements",
@@ -20,7 +20,7 @@
       "and in vivo coding",
       "analyzed in vivo using"
     ],
-    "environmentRealRules": [
+    "real": [
       "better real worlds",
       "fully real environments",
       "test/tracks real roads",
@@ -216,7 +216,7 @@
       "real photographs",
       "these real results"
     ],
-    "environmentReal_worldRules": [
+    "realWorld": [
       "for real world diagnosis",
       "real world applications",
       "are real world sensing",
@@ -405,7 +405,7 @@
       "on real-world case",
       "real-world artifacts"
     ],
-    "environmentSimulatedRules": [
+    "simulated": [
       "simulated wet",
       "simulated deformable",
       "system simulated eyepiece",
@@ -574,7 +574,7 @@
     ]
   },
   "proof": {
-    "proofAbductionRules": [
+    "abduction": [
       "shoulder abduction loading",
       "use abduction",
       "using abduction gram",
@@ -590,7 +590,7 @@
       "constraint abduction procedure",
       "your abduction"
     ],
-    "proofDeductionRules": [
+    "deduction": [
       "their deduction rule",
       "the deduction of",
       "such deduction",
@@ -605,7 +605,7 @@
       "deduction strategy",
       "accuracy deduction on"
     ],
-    "proofInductionRules": [
+    "induction": [
       "abstracting induction by",
       "induction variable",
       "noncanonical induction variables",
@@ -659,7 +659,7 @@
     ]
   },
   "nature": {
-    "natureAppliedRules": [
+    "applied": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -781,7 +781,7 @@
       "just applied individually",
       "domains applied cal"
     ],
-    "naturePureRules": [
+    "pure": [
       "pure",
       "in pure computer",
       "considered pure exploration",
@@ -859,8 +859,8 @@
       "pure strategy"
     ]
   },
-  "data_nature": {
-    "data_natureCross_sectionalRules": [
+  "dataNature": {
+    "crossSectional": [
       "with cross-sectional regression",
       "time cross-sectional longitud",
       "fixed cross-sectional area",
@@ -880,7 +880,7 @@
       "often cross-sectional in",
       "be cross-sectional than"
     ],
-    "data_natureCross_sectionRules": [
+    "crossSection": [
       "cross-section deformation",
       "cross-section dimensions",
       "the cross-section varies",
@@ -892,7 +892,7 @@
       "planar cross-section",
       "sensor cross-section skin"
     ],
-    "data_natureLongitudinalRules": [
+    "longitudinal": [
       "longitudinal tracking",
       "longitudinal observation",
       "a longitudinal studyphd",
@@ -940,7 +940,7 @@
       "longitudinal datasets",
       "experienced longitudinal cumulative"
     ],
-    "data_natureQualitativeRules": [
+    "qualitative": [
       "good qualitative fitting",
       "qualitative evaluation",
       "qualitative analysis",
@@ -1123,7 +1123,7 @@
       "becoming qualitative researchers",
       "qualitative survey"
     ],
-    "data_natureQuantitativeRules": [
+    "quantitative": [
       "shows quantitative difference",
       "quantitative measurements",
       "generate quantitative",
@@ -1303,14 +1303,14 @@
     ]
   },
   "methodological": {
-    "methodologicalControl_modelRules": [
+    "controlModel": [
       "optimal control model",
       "control model complexity",
       "control model targeting",
       "the control model of",
       "access control model that"
     ],
-    "methodologicalHistoricalRules": [
+    "historical": [
       "reveal historical genealogies",
       "all historical threads",
       "historical relationship",
@@ -1498,7 +1498,7 @@
       "questionable historical patterns",
       "its historical narratives"
     ],
-    "methodologicalHistoricRules": [
+    "historic": [
       "historic views",
       "historic data",
       "adapting historic perspectives",
@@ -1509,7 +1509,7 @@
       "like historic weather",
       "their historic relationship"
     ],
-    "methodologicalModelingRules": [
+    "modeling": [
       "limited modeling expertise",
       "incurring modeling errors",
       "goal-oriented modeling concept",
@@ -1850,7 +1850,7 @@
       "any modeling assumptions",
       "connect modeling choices"
     ],
-    "methodologicalObservationalRules": [
+    "observational": [
       "purely observational measures",
       "observational interaction",
       "observational robustness",
@@ -1901,16 +1901,16 @@
       "using observational data",
       "formative observational"
     ],
-    "methodologicalProcess_analysisRules": [
+    "processAnalysis": [
       "production process analysis for",
       "subsequent process analysis",
       "interaction process analysis",
       "gaussian process analysis algorithm"
     ],
-    "methodologicalProcessualRules": [
+    "processual": [
       "the processual nature"
     ],
-    "methodologicalPrototypeRules": [
+    "prototype": [
       "writer prototype",
       "hardware prototype consisted",
       "prototype from",
@@ -2061,7 +2061,7 @@
       "built-in prototype inheritance",
       "sharing prototype cannot"
     ],
-    "methodologicalSimulationRules": [
+    "simulation": [
       "experimental simulation took",
       "phenomenology simulation descriptive/e",
       "operational simulation argument",
@@ -2411,7 +2411,7 @@
     ]
   },
   "method": {
-    "methodAnalyticalRules": [
+    "analytical": [
       "recommended analytical approach",
       "an analytical lens",
       "descriptive analytical",
@@ -2527,7 +2527,7 @@
       "powerful analytical tool",
       "data-driven analytical system"
     ],
-    "methodCausalRules": [
+    "causal": [
       "dynamic causal monitoring",
       "from causal tracing",
       "uses causal metadata",
@@ -2690,7 +2690,7 @@
       "counterfactual causal thinking",
       "causal efects"
     ],
-    "methodCause_and_effectRules": [
+    "causeAndEffect": [
       "useful cause-and-effect relationships",
       "not cause-and-effect relationship",
       "cause-and-effect relationships",
@@ -2701,7 +2701,7 @@
       "individual cause-and-effect relationships",
       "cause-and-effect relationships"
     ],
-    "methodConceptRules": [
+    "concept": [
       "study concept implementatio",
       "window concept thataddstheco",
       "novel concept named",
@@ -2806,7 +2806,7 @@
       "strong concept may",
       "eractive concept"
     ],
-    "methodConceptualRules": [
+    "conceptual": [
       "conceptual understanding",
       "other conceptual framings",
       "re-negotiate conceptual relationships",
@@ -2955,7 +2955,7 @@
       "some conceptual perspectives",
       "additional conceptual register"
     ],
-    "methodConstructiveRules": [
+    "constructive": [
       "constructive behavior",
       "contextual constructive approach",
       "prove constructive lower",
@@ -2983,7 +2983,7 @@
       "constructive debate",
       "provide constructive opportunities"
     ],
-    "methodDescriptiveRules": [
+    "descriptive": [
       "descriptive models",
       "descriptive analytics",
       "slow-paced descriptive story",
@@ -3038,14 +3038,14 @@
       "providing descriptive overviews",
       "obtain descriptive information"
     ],
-    "methodEmpiricRules": [
+    "empiric": [
       "how empiric could",
       "of empiric over",
       "the empiric calculation",
       "primitive empiric that",
       "empiric parameters"
     ],
-    "methodEngineeringRules": [
+    "engineering": [
       "engineering practice",
       "binary engineering challenge",
       "our engineering toolkits",
@@ -3161,7 +3161,7 @@
       "provided engineering mobile",
       "based engineering provide"
     ],
-    "methodEvaluationRules": [
+    "evaluation": [
       "evaluation resumes",
       "package evaluation objective",
       "an evaluation derivation",
@@ -3622,7 +3622,7 @@
       "trees evaluation",
       "each evaluation"
     ],
-    "methodEvaluativeRules": [
+    "evaluative": [
       "their evaluative measures",
       "purely evaluative",
       "this evaluative criterion",
@@ -3643,7 +3643,7 @@
       "real-time evaluative feedback",
       "complex evaluative sensemaking"
     ],
-    "methodExperimentalRules": [
+    "experimental": [
       "shared experimental platform",
       "experimental phrases",
       "represent experimental condition",
@@ -3875,7 +3875,7 @@
       "experimental verification",
       "count experimental configuration"
     ],
-    "methodExploratoryRules": [
+    "exploratory": [
       "an exploratory study",
       "qualitative exploratory analysis",
       "exploratory programming",
@@ -3945,7 +3945,7 @@
       "these exploratory results",
       "open-ended exploratory nature"
     ],
-    "methodFormalRules": [
+    "formal": [
       "formal aspects",
       "adequate formal mathematical",
       "engineering formal interaction",
@@ -4085,7 +4085,7 @@
       "submissions formal guarantees",
       "automated formal synthesis"
     ],
-    "methodInvestigateRules": [
+    "investigate": [
       "immediately investigate your",
       "that investigate quality",
       "systematically investigate",
@@ -4139,7 +4139,7 @@
       "investigate techniques",
       "investigate heterogeneous"
     ],
-    "methodInvestigativeRules": [
+    "investigative": [
       "clear investigative goal",
       "investigative goals",
       "incident investigative method",
@@ -4172,7 +4172,7 @@
       "subtle investigative problem",
       "investigative lens"
     ],
-    "methodMathemathicalRules": [
+    "mathemathical": [
       "via math into",
       "math errors",
       "computer-based math game",
@@ -4198,7 +4198,7 @@
       "floating-point math",
       "rounded math libraries"
     ],
-    "methodNormativeRules": [
+    "normative": [
       "normative based",
       "reproduce normative constraints",
       "normative frames",
@@ -4240,10 +4240,10 @@
       "previous normative efforts",
       "normative assumptions"
     ],
-    "methodProblem_orientedRules": [
+    "problemOriented": [
       "problem-oriented solutions"
     ],
-    "methodProblem_solvingRules": [
+    "problemSolving": [
       "contextualised problem-solving",
       "creative problem-solving throughout",
       "decreased problem-solving transfer",
@@ -4292,7 +4292,7 @@
       "distributed problem-solving activities",
       "learn problem-solving procedures"
     ],
-    "methodScientificRules": [
+    "scientific": [
       "source scientific tools",
       "scientific approaches",
       "scientific programming",
@@ -4489,7 +4489,7 @@
       "define scientific problem",
       "data-oriented scientific initiative"
     ],
-    "methodTheoreticalRules": [
+    "theoretical": [
       "uncovering theoretical continuities",
       "theoretical understanding",
       "theoretical terms",
@@ -4643,8 +4643,8 @@
       "theoretical conceptions"
     ]
   },
-  "secondary_proof": {
-    "secondary_proofProofRules": [
+  "secondaryProof": {
+    "proof": [
       "similar proof applies",
       "proof corresponds",
       "mathematical proof",
@@ -4848,13 +4848,13 @@
       "modular proof architectures",
       "put proof sketches"
     ],
-    "secondary_proofRebuttalRules": [
+    "rebuttal": [
       "a rebuttal that",
       "rebuttal is"
     ]
   },
   "purpose": {
-    "purposeBehavioralRules": [
+    "behavioral": [
       "improving behavioral realism",
       "behavioral researchers",
       "with behavioral dynamics",
@@ -5031,7 +5031,7 @@
       "larger behavioral model",
       "behavioral indicators"
     ],
-    "purposeCritiqueRules": [
+    "critique": [
       "postmodernist critique asserts",
       "critique might",
       "might critique",
@@ -5063,7 +5063,7 @@
       "iterative critique over",
       "works critique specific"
     ],
-    "purposeDesign_scienceRules": [
+    "designScience": [
       "for design science research",
       "a design science paradigm",
       "task design science effect",
@@ -5075,7 +5075,7 @@
       "design science methodology",
       "design science research"
     ],
-    "purposeInterpretiveRules": [
+    "interpretive": [
       "iterative interpretive process",
       "the interpretive influence",
       "signals interpretive convention",
@@ -5109,8 +5109,8 @@
       "applied interpretive theories"
     ]
   },
-  "validation_result": {
-    "validation_resultCost_effectivenessRules": [
+  "validationResult": {
+    "costEffectiveness": [
       "the cost-effectiveness of",
       "maximizing cost-effectiveness within",
       "and cost-effectiveness for",
@@ -5127,7 +5127,7 @@
       "satisfactory cost-effectiveness",
       "our cost-effectiveness assessment"
     ],
-    "validation_resultEffectivenessRules": [
+    "effectiveness": [
       "final effectiveness metric",
       "signal effectiveness",
       "effectiveness against",
@@ -5188,7 +5188,7 @@
       "my effectiveness on the",
       "effectiveness depends"
     ],
-    "validation_resultEfficiencyRules": [
+    "efficiency": [
       "power efficiency power",
       "provide efficiency evaluations",
       "read efficiency even",
@@ -5359,7 +5359,7 @@
       "charging efficiency predominantly",
       "surprising efficiency improvements"
     ],
-    "validation_resultOperationalizationRules": [
+    "operationalization": [
       "encourage operationalization through",
       "the operationalization described",
       "its operationalization according",
@@ -5370,7 +5370,7 @@
       "an operationalization of",
       "diferent operationalization for"
     ],
-    "validation_resultUsabilityRules": [
+    "usability": [
       "usability standards",
       "translating usability questionnaires ",
       "short usability onnaire",
@@ -5511,8 +5511,8 @@
       "missing usability problems"
     ]
   },
-  "validation_strategy": {
-    "validation_strategyPilotRules": [
+  "validationStrategy": {
+    "pilot": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5522,7 +5522,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyComparativeRules": [
+    "comparative": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5532,7 +5532,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyProtocol_analysisRules": [
+    "protocolAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5542,7 +5542,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyObservationalRules": [
+    "observational": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5552,7 +5552,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyProject_monitoringRules": [
+    "projectMonitoring": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5562,7 +5562,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyMeta_analysisRules": [
+    "metaAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5572,7 +5572,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyLiterature_reviewRules": [
+    "literatureReview": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5582,7 +5582,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyHermeneuticsRules": [
+    "hermeneutics": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5592,7 +5592,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyPhenomenologyRules": [
+    "phenomenology": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5602,7 +5602,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyExperimentRules": [
+    "experiment": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5612,7 +5612,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyApplication_and_instrumentRules": [
+    "applicationAndInstrument": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5622,7 +5622,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyCommunityRules": [
+    "community": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5632,7 +5632,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyCase_controlRules": [
+    "caseControl": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5642,7 +5642,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyDiscourse_analysisRules": [
+    "discourseAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5652,7 +5652,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyConceptual_analysisRules": [
+    "conceptualAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5662,7 +5662,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyStatic_analysisRules": [
+    "staticAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5672,7 +5672,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyDynamic_analysisRules": [
+    "dynamicAnalysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5682,7 +5682,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyMathematical_proofRules": [
+    "mathematicalProof": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5692,7 +5692,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyGrounded_theoryRules": [
+    "groundedTheory": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5702,7 +5702,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyReplicationRules": [
+    "replication": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5712,7 +5712,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyCase_studyRules": [
+    "caseStudy": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5722,7 +5722,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategyAction_researchRules": [
+    "actionResearch": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5732,7 +5732,7 @@
       "authors applied",
       "applied data"
     ],
-    "validation_strategySecondary_dataRules": [
+    "secondaryData": [
       "applied",
       "can be applied to the field",
       "being applied to",

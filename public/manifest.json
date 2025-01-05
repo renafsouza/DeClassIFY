@@ -22,5 +22,11 @@
       ],
       "css": ["build/bundle.css"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/owl-big.png"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }
