@@ -82,8 +82,7 @@ class DeclassifyService {
 
     async getPageText(page) {
         const pageTextContent = await page.getTextContent();
-        const text = this.extractNormalizedText(pageTextContent);
-        return text;
+        return this.extractNormalizedText(pageTextContent);
     }
 
     extractNormalizedText(pageTextContent) {
@@ -92,17 +91,16 @@ class DeclassifyService {
     }
 
     extractText(pageTextContent) {
-        let text = pageTextContent.items.reduce((acc, item) => {
+        return pageTextContent.items.reduce((acc, item) => {
             return acc + item.str;
         }, "");
-        return text
     }
 
     normalizeText(text) {
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.toLowerCase();
         text = text.replace(/[^a-z\n\t]+/g, " ");
-        text = text.replace(/[" "]+/g, " ");
+        text = text.replace(/[" ]+/g, " ");
         return text;
     }
 }

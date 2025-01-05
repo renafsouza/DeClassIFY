@@ -16,7 +16,7 @@
         }
 
         const plugin = document.querySelector('embed[type="application/pdf"]');
-        if (plugin && plugin.getAttribute("type") == "application/pdf") {
+        if (plugin && plugin.getAttribute("type") === "application/pdf") {
             return currentUrl;
         }
         return null;
@@ -134,7 +134,7 @@
     #modal {
         font-family: sans-serif;
         background-color: white;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
         width: 230px;
         border-radius: 8px 8px 0 0;
         padding: 20px;
@@ -143,7 +143,7 @@
     #modal-close-container {
         display: flex;
         justify-content: flex-end;
-        height: 0px;
+        height: 0;
     }
 
     #modal-close-button {
