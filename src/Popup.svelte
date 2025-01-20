@@ -7,6 +7,7 @@
     let isModalVisible = false;
     let results = [];
     let isLoading = false;
+    let articleTitle = '';
 
     function getUrl() {
         const currentUrl = window.location.href;
@@ -37,7 +38,8 @@
     async function classifyDocument() {
         const declassify = new DeclassifyService();
         isLoading = true;
-        const {results: newResults} = await declassify.classify(url);
+        const {title, results: newResults} = await declassify.classify(url);
+        articleTitle = title;
         isLoading = false;
 
         // Add classification results
@@ -81,7 +83,7 @@
                     <div id="modal-close-button" on:click={hideModal}>✖</div>
                 </div>
                 <div id="title"><span>De</span><span>classify</span></div>
-                <div id="document-title">Expressing Computer Science Concepts Through Kodu Game Lab</div>
+                <div id="document-title">{articleTitle}</div>
                 <div id="pdf-classify-results">
                     {#each results as {name, result}}
                         <p><strong>{name}</strong>: {result}</p>

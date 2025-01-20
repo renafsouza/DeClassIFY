@@ -24,9 +24,20 @@ class DeclassifyService {
     }
 
     async classify(url) {
-        const classificationsOccurances = await this.countClassificationsOccurances(url);
+        const pdf = await pdfjsLib.getDocument(url).promise;
+        const title = await this.getDocumentTitle(url, pdf)
+        const classificationsOccurances = await this.countClassificationsOccurances(pdf);
         const results = this.generateResults(classificationsOccurances);
-        return {results, classificationsOccurances};
+        return {
+            title, results, classificationsOccurances
+        };
+    }
+
+    async getDocumentTitle (url, pdf){
+        const metadata = await pdf.getMetadata();
+        const fileName = url.split('/').pop();
+        console.log(metadata.info)
+        return metadata.info.Title || fileName
     }
 
     countClassificationOccurrances(classification, text) { // Categoria 1
@@ -37,9 +48,7 @@ class DeclassifyService {
         return occurrences;
     }
 
-    async countClassificationsOccurances(url){
-        const pdf = await pdfjsLib.getDocument(url).promise;
-
+    async countClassificationsOccurances(pdf) {
         const classifications = {}
         for (const classification in newRules) {
             classifications[classification] = {}
@@ -97,10 +106,12 @@ class DeclassifyService {
     }
 
     normalizeText(text) {
+        console.log(text)
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.toLowerCase();
         text = text.replace(/[^a-z\n\t]+/g, " ");
         text = text.replace(/[" ]+/g, " ");
+        console.log(text)
         return text;
     }
 }
