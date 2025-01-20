@@ -36,7 +36,6 @@ class DeclassifyService {
     async getDocumentTitle (url, pdf){
         const metadata = await pdf.getMetadata();
         const fileName = url.split('/').pop();
-        console.log(metadata.info)
         return metadata.info.Title || fileName
     }
 
@@ -106,12 +105,10 @@ class DeclassifyService {
     }
 
     normalizeText(text) {
-        console.log(text)
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.toLowerCase();
         text = text.replace(/[^a-z\n\t\-]+/g, " ");
         text = text.replace(/[" ]+/g, " ");
-        console.log(text)
         return text;
     }
 }
