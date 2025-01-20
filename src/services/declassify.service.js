@@ -109,7 +109,7 @@ class DeclassifyService {
         console.log(text)
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.toLowerCase();
-        text = text.replace(/[^a-z\n\t]+/g, " ");
+        text = text.replace(/[^a-z\n\t\-]+/g, " ");
         text = text.replace(/[" ]+/g, " ");
         console.log(text)
         return text;
