@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/icon-128.png" />
+  <img src="public/images/icon-128.png" />
 </p>
 
 <h1 align="center">DeClassIFY</h1>
