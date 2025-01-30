@@ -5,7 +5,7 @@
 <h1 align="center">DeClassIFY</h1>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExamdyMDE4dTc4MW03NGhtNGdzbjlueWFoMzM0bmw0dWlwOG16anZxcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/H9OkS7wVxg5DpjLwWY/giphy.gif" />
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGo0YzFlY214OTg4dXA5azd4Nm1nb29yMzlhMTFlamhzNXRyb2xqaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0cJ8K2KxRpHaSYuvPp/giphy.gif" />
 </p>
 
 DeClassIFY is a Google Chrome extension designed to classify PDF documents, primarily academic papers, based on the nature of the research presented. It categorizes documents according to several aspects of the research methodology, providing insights into the type of study and approach taken.
