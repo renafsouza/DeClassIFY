@@ -2,9 +2,16 @@
   "manifest_version": 3,
   "name": "DeClassIFY",
   "version": "2.0",
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "permissions": [
+    "webRequest",
+    "webRequestBlocking",
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage",
+    "tabs"
   ],
   "icons": {
     "16": "images/icon-16.png",
@@ -18,14 +25,17 @@
         "<all_urls>"
       ],
       "js": [
-        "libs/pdf.min.js", "libs/pdf-worker.min.js","build/bundle.js"
+        "libs/pdf.min.js", "libs/pdf-worker.min.js", "build/bundle.js"
       ],
       "css": ["build/bundle.css"]
     }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "web_accessible_resources": [
     {
-      "resources": ["images/owl-big.png"],
+      "resources": ["images/QueroQuero-Fundo.png"],
       "matches": ["<all_urls>"]
     }
   ]
