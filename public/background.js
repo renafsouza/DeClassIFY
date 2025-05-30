@@ -1,10 +1,15 @@
-chrome.webRequest.onCompleted.addListener(
+chrome.webRequest.onHeadersReceived.addListener(
   (details) => {
-    if (details.url.endsWith(".pdf")) {
-      console.log("PDF URL detected:", details.url);
+    const contentTypeHeader = details.responseHeaders.find(
+      (h) => h.name.toLowerCase() === "content-type"
+    );
+
+    const isPdf = contentTypeHeader?.value?.toLowerCase().includes("application/pdf");
+
+    if (isPdf) {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.scripting.executeScript({
-          target: { tabId: tabs[0].id },
+          target: { tabId: tabs[0]?.id },
           func: (url) => {
             window.dispatchEvent(new CustomEvent('pdfUrlDetected', { detail: url }));
           },
@@ -13,5 +18,6 @@ chrome.webRequest.onCompleted.addListener(
       });
     }
   },
-  { urls: ["<all_urls>"] }
+  { urls: ["<all_urls>"] },
+  ["responseHeaders"]
 );

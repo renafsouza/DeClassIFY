@@ -24,13 +24,13 @@ class DeclassifyService {
     }
 
     async classify(url) {
-        const pdf = await pdfjsLib.getDocument(url).promise;
-        const title = await this.getDocumentTitle(url, pdf)
-        const classificationsOccurances = await this.countClassificationsOccurances(pdf);
-        const results = this.generateResults(classificationsOccurances);
-        return {
-            title, results, classificationsOccurances
-        };
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const title = await this.getDocumentTitle(url, pdf)
+      const classificationsOccurances = await this.countClassificationsOccurances(pdf);
+      const results = this.generateResults(classificationsOccurances);
+      return {
+          title, results, classificationsOccurances
+      };
     }
 
     async getDocumentTitle (url, pdf){

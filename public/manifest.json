@@ -3,7 +3,8 @@
   "name": "DeClassIFY",
   "version": "2.0",
   "host_permissions": [
-    "<all_urls>"
+    "<all_urls>",
+    "file:///*"
   ],
   "permissions": [
     "webRequest",

@@ -1,6 +1,6 @@
-import Popup from './Popup.svelte';
+import Declassify from './Declassify.svelte';
 
-const app = new Popup({
+const app = new Declassify({
 	target: document.body,
 });
 
