@@ -3,7 +3,10 @@
   import Popup from './Popup.svelte';
   import { resultsStore } from './store/store.js';
   import { onDestroy } from 'svelte';
+  import zoteroService from "./services/zotero.service.js";
 
+  const currentUrl = window.location.href;
+  const isZotero = currentUrl.includes("zotero.org") && currentUrl.includes("/reader")
   let url
   let articleTitle = '';
   let modalHost;
@@ -29,28 +32,42 @@
     resultsStore.update((items) => [...items, { name, result }]);
   }
 
+
   async function classifyDocument() {
-    const declassify = new DeclassifyService();
-    const {title, results: newResults} = await declassify.classify(url);
-    articleTitle = title;
-    resultsStore.update(()=>[])
-    addResult("Nature", `${newResults.nature}`);
-    addResult("Method", `${newResults.method}`);
-    addResult("Validation Strategy", `${newResults.validationStrategy}`);
-    addResult("Data Nature", `${newResults.dataNature}`);
-    addResult("Environment", `${newResults.environment}`);
-    addResult("Methodological", `${newResults.methodological}`);
-    addResult("Proof", `${newResults.proof}`);
-    addResult("Purpose", `${newResults.purpose}`);
-    addResult("Secondary Proof", `${newResults.secondaryProof}`);
-    addResult("Validation Result", `${newResults.validationResult}`);
-    addResult("exemplo", `${newResults.exemplo}`);
+      console.log('classifyDocument with URL=',url)
+      const declassify = new DeclassifyService();
+      const {title, results: newResults} = await declassify.classify(url);
+      articleTitle = title;
+      resultsStore.update(()=>[])
+      return newResults
+  }
+
+  async function loadResults() {
+    console.log('loadResults')
+    let newResults = null
+    newResults = await classifyDocument()
+    console.log('isZotero', isZotero)
+    if (isZotero) {
+      const itemKey = currentUrl.split("/items/")[1]?.split("/")[0];
+      console.log('itemKey', itemKey)
+      if (itemKey) {
+        const tags = await zoteroService.getTags(itemKey);
+        console.log('tags', tags)
+        tags.forEach(tag=>{
+          newResults[tag.tag.split(":")[0]] = tag.tag.split(":")[1]
+        })
+      }
+    }
+    console.log("newResults", newResults)
+    for(const resultKey in newResults) {
+      addResult(resultKey, newResults[resultKey]);
+    }
   }
 
   window.addEventListener('pdfUrlDetected', async (event) => {
     if (!url) {
+      console.log('pdfUrlDetected', event.detail)
       url = event.detail;
-      classifyDocument();
     }
     if (modalHost && url && !hosted) {
       hosted = true
@@ -59,15 +76,8 @@
     }
   });
 
-  window.addEventListener('pdfUrlDetected', (event) => {
-    if(!url){
-      url = event.detail;
-      classifyDocument();
-    }
-  });
-
   url = getUrl();
-  if(url) classifyDocument();
+  $: if(url) loadResults();
   onDestroy(() => unsubscribe());
 </script>
 

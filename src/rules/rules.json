@@ -1,11 +1,11 @@
 {
-  "environment": {
-    "inVitro": [
+  "Environment": {
+    "In Vitro": [
       "from in vitro to",
       "the in vitro benchmarks",
       "example in vitro"
     ],
-    "inVivo": [
+    "In Vivo": [
       "evolução das tecnologias",
       "in vivo spam",
       "in vivo process",
@@ -20,7 +20,7 @@
       "and in vivo coding",
       "analyzed in vivo using"
     ],
-    "real": [
+    "Real": [
       "better real worlds",
       "fully real environments",
       "test/tracks real roads",
@@ -216,7 +216,7 @@
       "real photographs",
       "these real results"
     ],
-    "realWorld": [
+    "Real World": [
       "for real world diagnosis",
       "real world applications",
       "are real world sensing",
@@ -405,7 +405,7 @@
       "on real-world case",
       "real-world artifacts"
     ],
-    "simulated": [
+    "Simulated": [
       "simulated wet",
       "simulated deformable",
       "system simulated eyepiece",
@@ -573,8 +573,8 @@
       "one simulated dataset"
     ]
   },
-  "proof": {
-    "abduction": [
+  "Proof": {
+    "Abduction": [
       "shoulder abduction loading",
       "use abduction",
       "using abduction gram",
@@ -590,7 +590,7 @@
       "constraint abduction procedure",
       "your abduction"
     ],
-    "deduction": [
+    "Deduction": [
       "their deduction rule",
       "the deduction of",
       "such deduction",
@@ -605,7 +605,7 @@
       "deduction strategy",
       "accuracy deduction on"
     ],
-    "induction": [
+    "Induction": [
       "abstracting induction by",
       "induction variable",
       "noncanonical induction variables",
@@ -658,8 +658,8 @@
       "because induction"
     ]
   },
-  "nature": {
-    "applied": [
+  "Nature": {
+    "Applied": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -781,7 +781,7 @@
       "just applied individually",
       "domains applied cal"
     ],
-    "pure": [
+    "Pure": [
       "pure",
       "in pure computer",
       "considered pure exploration",
@@ -859,8 +859,8 @@
       "pure strategy"
     ]
   },
-  "dataNature": {
-    "crossSectional": [
+  "Data Nature": {
+    "Cross Sectional": [
       "with cross-sectional regression",
       "time cross-sectional longitud",
       "fixed cross-sectional area",
@@ -880,7 +880,7 @@
       "often cross-sectional in",
       "be cross-sectional than"
     ],
-    "crossSection": [
+    "Cross Section": [
       "cross-section deformation",
       "cross-section dimensions",
       "the cross-section varies",
@@ -892,7 +892,7 @@
       "planar cross-section",
       "sensor cross-section skin"
     ],
-    "longitudinal": [
+    "Longitudinal": [
       "longitudinal tracking",
       "longitudinal observation",
       "a longitudinal studyphd",
@@ -940,7 +940,7 @@
       "longitudinal datasets",
       "experienced longitudinal cumulative"
     ],
-    "qualitative": [
+    "Qualitative": [
       "good qualitative fitting",
       "qualitative evaluation",
       "qualitative analysis",
@@ -1123,7 +1123,7 @@
       "becoming qualitative researchers",
       "qualitative survey"
     ],
-    "quantitative": [
+    "Quantitative": [
       "shows quantitative difference",
       "quantitative measurements",
       "generate quantitative",
@@ -1302,15 +1302,15 @@
       "scale quantitative study"
     ]
   },
-  "methodological": {
-    "controlModel": [
+  "Methodological": {
+    "Control Model": [
       "optimal control model",
       "control model complexity",
       "control model targeting",
       "the control model of",
       "access control model that"
     ],
-    "historical": [
+    "Historical": [
       "reveal historical genealogies",
       "all historical threads",
       "historical relationship",
@@ -1498,7 +1498,7 @@
       "questionable historical patterns",
       "its historical narratives"
     ],
-    "historic": [
+    "Historic": [
       "historic views",
       "historic data",
       "adapting historic perspectives",
@@ -1509,7 +1509,7 @@
       "like historic weather",
       "their historic relationship"
     ],
-    "modeling": [
+    "Modeling": [
       "limited modeling expertise",
       "incurring modeling errors",
       "goal-oriented modeling concept",
@@ -1850,7 +1850,7 @@
       "any modeling assumptions",
       "connect modeling choices"
     ],
-    "observational": [
+    "Observational": [
       "purely observational measures",
       "observational interaction",
       "observational robustness",
@@ -1901,16 +1901,16 @@
       "using observational data",
       "formative observational"
     ],
-    "processAnalysis": [
+    "Process Analysis": [
       "production process analysis for",
       "subsequent process analysis",
       "interaction process analysis",
       "gaussian process analysis algorithm"
     ],
-    "processual": [
+    "Processual": [
       "the processual nature"
     ],
-    "prototype": [
+    "Prototype": [
       "writer prototype",
       "hardware prototype consisted",
       "prototype from",
@@ -2061,7 +2061,7 @@
       "built-in prototype inheritance",
       "sharing prototype cannot"
     ],
-    "simulation": [
+    "Simulation": [
       "experimental simulation took",
       "phenomenology simulation descriptive/e",
       "operational simulation argument",
@@ -2410,8 +2410,8 @@
       "event simulation"
     ]
   },
-  "method": {
-    "analytical": [
+  "Method": {
+    "Analytical": [
       "recommended analytical approach",
       "an analytical lens",
       "descriptive analytical",
@@ -2527,7 +2527,7 @@
       "powerful analytical tool",
       "data-driven analytical system"
     ],
-    "causal": [
+    "Causal": [
       "dynamic causal monitoring",
       "from causal tracing",
       "uses causal metadata",
@@ -2690,7 +2690,7 @@
       "counterfactual causal thinking",
       "causal efects"
     ],
-    "causeAndEffect": [
+    "Cause And Effect": [
       "useful cause-and-effect relationships",
       "not cause-and-effect relationship",
       "cause-and-effect relationships",
@@ -2701,7 +2701,7 @@
       "individual cause-and-effect relationships",
       "cause-and-effect relationships"
     ],
-    "concept": [
+    "Concept": [
       "study concept implementatio",
       "window concept thataddstheco",
       "novel concept named",
@@ -2806,7 +2806,7 @@
       "strong concept may",
       "eractive concept"
     ],
-    "conceptual": [
+    "Conceptual": [
       "conceptual understanding",
       "other conceptual framings",
       "re-negotiate conceptual relationships",
@@ -2955,7 +2955,7 @@
       "some conceptual perspectives",
       "additional conceptual register"
     ],
-    "constructive": [
+    "Constructive": [
       "constructive behavior",
       "contextual constructive approach",
       "prove constructive lower",
@@ -2983,7 +2983,7 @@
       "constructive debate",
       "provide constructive opportunities"
     ],
-    "descriptive": [
+    "Descriptive": [
       "descriptive models",
       "descriptive analytics",
       "slow-paced descriptive story",
@@ -3038,14 +3038,14 @@
       "providing descriptive overviews",
       "obtain descriptive information"
     ],
-    "empiric": [
+    "Empiric": [
       "how empiric could",
       "of empiric over",
       "the empiric calculation",
       "primitive empiric that",
       "empiric parameters"
     ],
-    "engineering": [
+    "Engineering": [
       "engineering practice",
       "binary engineering challenge",
       "our engineering toolkits",
@@ -3161,7 +3161,7 @@
       "provided engineering mobile",
       "based engineering provide"
     ],
-    "evaluation": [
+    "Evaluation": [
       "evaluation resumes",
       "package evaluation objective",
       "an evaluation derivation",
@@ -3622,7 +3622,7 @@
       "trees evaluation",
       "each evaluation"
     ],
-    "evaluative": [
+    "Evaluative": [
       "their evaluative measures",
       "purely evaluative",
       "this evaluative criterion",
@@ -3643,7 +3643,7 @@
       "real-time evaluative feedback",
       "complex evaluative sensemaking"
     ],
-    "experimental": [
+    "Experimental": [
       "shared experimental platform",
       "experimental phrases",
       "represent experimental condition",
@@ -3875,7 +3875,7 @@
       "experimental verification",
       "count experimental configuration"
     ],
-    "exploratory": [
+    "Exploratory": [
       "an exploratory study",
       "qualitative exploratory analysis",
       "exploratory programming",
@@ -3945,7 +3945,7 @@
       "these exploratory results",
       "open-ended exploratory nature"
     ],
-    "formal": [
+    "Formal": [
       "formal aspects",
       "adequate formal mathematical",
       "engineering formal interaction",
@@ -4085,7 +4085,7 @@
       "submissions formal guarantees",
       "automated formal synthesis"
     ],
-    "investigate": [
+    "Investigate": [
       "immediately investigate your",
       "that investigate quality",
       "systematically investigate",
@@ -4139,7 +4139,7 @@
       "investigate techniques",
       "investigate heterogeneous"
     ],
-    "investigative": [
+    "Investigative": [
       "clear investigative goal",
       "investigative goals",
       "incident investigative method",
@@ -4172,7 +4172,7 @@
       "subtle investigative problem",
       "investigative lens"
     ],
-    "mathemathical": [
+    "Mathemathical": [
       "via math into",
       "math errors",
       "computer-based math game",
@@ -4198,7 +4198,7 @@
       "floating-point math",
       "rounded math libraries"
     ],
-    "normative": [
+    "Normative": [
       "normative based",
       "reproduce normative constraints",
       "normative frames",
@@ -4240,10 +4240,10 @@
       "previous normative efforts",
       "normative assumptions"
     ],
-    "problemOriented": [
+    "Problem Oriented": [
       "problem-oriented solutions"
     ],
-    "problemSolving": [
+    "Problem Solving": [
       "contextualised problem-solving",
       "creative problem-solving throughout",
       "decreased problem-solving transfer",
@@ -4292,7 +4292,7 @@
       "distributed problem-solving activities",
       "learn problem-solving procedures"
     ],
-    "scientific": [
+    "Scientific": [
       "source scientific tools",
       "scientific approaches",
       "scientific programming",
@@ -4489,7 +4489,7 @@
       "define scientific problem",
       "data-oriented scientific initiative"
     ],
-    "theoretical": [
+    "Theoretical": [
       "uncovering theoretical continuities",
       "theoretical understanding",
       "theoretical terms",
@@ -4643,8 +4643,8 @@
       "theoretical conceptions"
     ]
   },
-  "secondaryProof": {
-    "proof": [
+  "Secondary Proof": {
+    "Proof": [
       "similar proof applies",
       "proof corresponds",
       "mathematical proof",
@@ -4848,13 +4848,13 @@
       "modular proof architectures",
       "put proof sketches"
     ],
-    "rebuttal": [
+    "Rebuttal": [
       "a rebuttal that",
       "rebuttal is"
     ]
   },
-  "purpose": {
-    "behavioral": [
+  "Purpose": {
+    "Behavioral": [
       "improving behavioral realism",
       "behavioral researchers",
       "with behavioral dynamics",
@@ -5031,7 +5031,7 @@
       "larger behavioral model",
       "behavioral indicators"
     ],
-    "critique": [
+    "Critique": [
       "postmodernist critique asserts",
       "critique might",
       "might critique",
@@ -5063,7 +5063,7 @@
       "iterative critique over",
       "works critique specific"
     ],
-    "designScience": [
+    "Design Science": [
       "for design science research",
       "a design science paradigm",
       "task design science effect",
@@ -5075,7 +5075,7 @@
       "design science methodology",
       "design science research"
     ],
-    "interpretive": [
+    "Interpretive": [
       "iterative interpretive process",
       "the interpretive influence",
       "signals interpretive convention",
@@ -5109,8 +5109,8 @@
       "applied interpretive theories"
     ]
   },
-  "validationResult": {
-    "costEffectiveness": [
+  "Validation Result": {
+    "Cost Effectiveness": [
       "the cost-effectiveness of",
       "maximizing cost-effectiveness within",
       "and cost-effectiveness for",
@@ -5127,7 +5127,7 @@
       "satisfactory cost-effectiveness",
       "our cost-effectiveness assessment"
     ],
-    "effectiveness": [
+    "Effectiveness": [
       "final effectiveness metric",
       "signal effectiveness",
       "effectiveness against",
@@ -5188,7 +5188,7 @@
       "my effectiveness on the",
       "effectiveness depends"
     ],
-    "efficiency": [
+    "Efficiency": [
       "power efficiency power",
       "provide efficiency evaluations",
       "read efficiency even",
@@ -5359,7 +5359,7 @@
       "charging efficiency predominantly",
       "surprising efficiency improvements"
     ],
-    "operationalization": [
+    "Operationalization": [
       "encourage operationalization through",
       "the operationalization described",
       "its operationalization according",
@@ -5370,7 +5370,7 @@
       "an operationalization of",
       "diferent operationalization for"
     ],
-    "usability": [
+    "Usability": [
       "usability standards",
       "translating usability questionnaires ",
       "short usability onnaire",
@@ -5511,8 +5511,8 @@
       "missing usability problems"
     ]
   },
-  "validationStrategy": {
-    "pilot": [
+  "Validation Strategy": {
+    "Pilot": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5522,7 +5522,7 @@
       "authors applied",
       "applied data"
     ],
-    "comparative": [
+    "Comparative": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5532,7 +5532,7 @@
       "authors applied",
       "applied data"
     ],
-    "protocolAnalysis": [
+    "Protocol Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5542,7 +5542,7 @@
       "authors applied",
       "applied data"
     ],
-    "observational": [
+    "Observational": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5552,7 +5552,7 @@
       "authors applied",
       "applied data"
     ],
-    "projectMonitoring": [
+    "Project Monitoring": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5562,7 +5562,7 @@
       "authors applied",
       "applied data"
     ],
-    "metaAnalysis": [
+    "Meta Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5572,7 +5572,7 @@
       "authors applied",
       "applied data"
     ],
-    "literatureReview": [
+    "Literature Review": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5582,7 +5582,7 @@
       "authors applied",
       "applied data"
     ],
-    "hermeneutics": [
+    "Hermeneutics": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5592,7 +5592,7 @@
       "authors applied",
       "applied data"
     ],
-    "phenomenology": [
+    "Phenomenology": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5602,7 +5602,7 @@
       "authors applied",
       "applied data"
     ],
-    "experiment": [
+    "Experiment": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5612,7 +5612,7 @@
       "authors applied",
       "applied data"
     ],
-    "applicationAndInstrument": [
+    "Application And Instrument": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5622,7 +5622,7 @@
       "authors applied",
       "applied data"
     ],
-    "community": [
+    "Community": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5632,7 +5632,7 @@
       "authors applied",
       "applied data"
     ],
-    "caseControl": [
+    "Case Control": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5642,7 +5642,7 @@
       "authors applied",
       "applied data"
     ],
-    "discourseAnalysis": [
+    "Discourse Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5652,7 +5652,7 @@
       "authors applied",
       "applied data"
     ],
-    "conceptualAnalysis": [
+    "Conceptual Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5662,7 +5662,7 @@
       "authors applied",
       "applied data"
     ],
-    "staticAnalysis": [
+    "Static Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5672,7 +5672,7 @@
       "authors applied",
       "applied data"
     ],
-    "dynamicAnalysis": [
+    "Dynamic Analysis": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5682,7 +5682,7 @@
       "authors applied",
       "applied data"
     ],
-    "mathematicalProof": [
+    "Mathematical Proof": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5692,7 +5692,7 @@
       "authors applied",
       "applied data"
     ],
-    "groundedTheory": [
+    "Grounded Theory": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5702,7 +5702,7 @@
       "authors applied",
       "applied data"
     ],
-    "replication": [
+    "Replication": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5712,7 +5712,7 @@
       "authors applied",
       "applied data"
     ],
-    "caseStudy": [
+    "Case Study": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5722,7 +5722,7 @@
       "authors applied",
       "applied data"
     ],
-    "actionResearch": [
+    "Action Research": [
       "applied",
       "can be applied to the field",
       "being applied to",
@@ -5732,7 +5732,7 @@
       "authors applied",
       "applied data"
     ],
-    "secondaryData": [
+    "": [
       "applied",
       "can be applied to the field",
       "being applied to",
