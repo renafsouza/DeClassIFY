@@ -20,6 +20,26 @@ export class BackgroundService {
 
     })
   }
+
+  async fetch(url, { method = "GET", headers = {}, body = null }) {
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage(
+        {
+          type: "background-fetch",
+          payload: { url, method, headers, body },
+        },
+        (res) => {
+          if (chrome.runtime.lastError || !res) {
+            reject(chrome.runtime.lastError || new Error("No response"));
+          } else if (res.error) {
+            reject(new Error(res.error));
+          } else {
+            resolve(res);
+          }
+        }
+      );
+    });
+  }
 }
 
 const backgroundService = new BackgroundService();

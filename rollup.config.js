@@ -6,6 +6,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
 import json from '@rollup/plugin-json';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -58,9 +59,11 @@ export default {
 		resolve({
 			browser: true,
 			dedupe: ['svelte'],
-			exportConditions: ['svelte']
+			exportConditions: ['svelte'],
+			preferBuiltins: false, // important
 		}),
 		commonjs(),
+		nodePolyfills(),  // add this
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated

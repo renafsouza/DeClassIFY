@@ -1,40 +1,89 @@
-chrome.webRequest.onHeadersReceived.addListener(
-  (details) => {
-    const contentType = details.responseHeaders.find(
-      (h) => h.name.toLowerCase() === "content-type"
-    )?.value?.toLowerCase();
+const pendingMessages = {};
 
-    if (contentType?.includes("application/pdf")) {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.scripting.executeScript({
-          target: { tabId: tabs[0]?.id },
-          func: (url) => {
-            window.dispatchEvent(new CustomEvent("pdfUrlDetected", { detail: url }));
-          },
-          args: [details.url],
-        });
-      });
-    }
-  },
-  { urls: ["<all_urls>"] },
-  ["responseHeaders"]
-);
+chrome.runtime.onMessage.addListener(handleRuntimeMessage);
+chrome.webRequest.onHeadersReceived.addListener(handleHeadersReceived, { urls: ["<all_urls>"] }, ["responseHeaders"]);
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "uploadFile") {
-    const { uploadLinkJson, blobBuffer, filename, itemKey, blobType, apiKey, userId } = message;
-    const blob = new Blob([new Uint8Array(blobBuffer)], { type: blobType });
+/* ==========================
+   HANDLERS
+========================== */
 
-    uploadFile(uploadLinkJson, blob, filename, itemKey, apiKey, userId)
-      .then((success) => sendResponse({ success }))
-      .catch((e) => {
-        console.error("Upload failed:", e);
-        sendResponse({ success: false });
-      });
+// Handles all runtime messages
+function handleRuntimeMessage(message, sender, sendResponse) {
+  switch (message.type || message.action) {
+    case "content-script-ready":
+      onContentScriptReady(sender.tab.id);
+      break;
 
-    return true; // Keep message channel open for async response
+    case "uploadFile":
+      handleUploadFile(message, sendResponse);
+      return true;
+
+    case "get-redirect-url":
+      sendResponse({ url: chrome.identity.getRedirectURL("zotero") });
+      return true;
+
+    case "launch-auth-popup":
+      launchAuthPopup(message.url, sendResponse);
+      return true;
+
+    case "background-fetch":
+      backgroundFetch(message.payload, sendResponse);
+      return true;
   }
-});
+}
+
+// Intercepts response headers to detect PDFs
+function handleHeadersReceived(details) {
+  const contentType = details.responseHeaders.find(
+    (h) => h.name.toLowerCase() === "content-type"
+  )?.value?.toLowerCase();
+
+  if (contentType?.includes("application/pdf")) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0]?.id;
+      if (tabId != null) {
+        queueOrSendMessage(tabId, { type: "pdfUrlDetected", url: details.url });
+      }
+    });
+  }
+}
+
+// When content script signals it's ready
+function onContentScriptReady(tabId) {
+  const queued = pendingMessages[tabId];
+  if (queued) {
+    chrome.tabs.sendMessage(tabId, queued);
+    delete pendingMessages[tabId];
+  }
+}
+
+/* ==========================
+   MESSAGE QUEUING
+========================== */
+
+function queueOrSendMessage(tabId, message) {
+  chrome.tabs.sendMessage(tabId, message, (res) => {
+    if (chrome.runtime.lastError) {
+      pendingMessages[tabId] = message;
+    }
+  });
+}
+
+/* ==========================
+   UPLOAD HANDLING
+========================== */
+
+function handleUploadFile(message, sendResponse) {
+  const { uploadLinkJson, blobBuffer, filename, itemKey, blobType, apiKey, userId } = message;
+  const blob = new Blob([new Uint8Array(blobBuffer)], { type: blobType });
+
+  uploadFile(uploadLinkJson, blob, filename, itemKey, apiKey, userId)
+    .then((success) => sendResponse({ success }))
+    .catch((e) => {
+      console.error("Upload failed:", e);
+      sendResponse({ success: false });
+    });
+}
 
 async function uploadFile(uploadLinkJson, blob, filename, itemKey, apiKey, userId) {
   const baseUrl = `https://api.zotero.org/users/${userId}`;
@@ -59,11 +108,9 @@ async function uploadFile(uploadLinkJson, blob, filename, itemKey, apiKey, userI
   });
 
   const text = await uploadRes.text();
-  console.log("Upload response:", text);
 
   if (uploadRes.status === 201) {
     await registerUploadedFile(baseUrl, itemKey, uploadLinkJson.uploadKey, apiKey);
-    console.log("PDF uploaded and registered successfully.");
     return true;
   } else {
     console.error("Failed to upload PDF:", uploadRes.status, text);
@@ -88,4 +135,35 @@ async function registerUploadedFile(baseUrl, itemKey, uploadKey, apiKey) {
   }
 
   return text;
+}
+
+/* ==========================
+   AUTH / FETCH
+========================== */
+
+function launchAuthPopup(url, sendResponse) {
+  chrome.identity.launchWebAuthFlow(
+    { url, interactive: true },
+    (redirectUrl) => {
+      if (chrome.runtime.lastError || !redirectUrl) {
+        sendResponse({ error: chrome.runtime.lastError?.message });
+      } else {
+        sendResponse({ redirectUrl });
+      }
+    }
+  );
+}
+
+function backgroundFetch(payload, sendResponse) {
+  const { url, method, headers, body } = payload;
+
+  fetch(url, { method, headers, body })
+    .then(async (res) => {
+      const text = await res.text();
+      sendResponse({ status: res.status, text });
+    })
+    .catch((err) => {
+      console.error("Background fetch error:", err);
+      sendResponse({ error: err.message });
+    });
 }

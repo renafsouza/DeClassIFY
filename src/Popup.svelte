@@ -1,22 +1,32 @@
 <script>
-  import {onMount} from "svelte";
-  import {resultsStore} from './store/store.js';
-  import {onDestroy} from 'svelte';
+  import { onMount } from "svelte";
+  import { resultsStore } from "./store/store.js";
+  import { onDestroy } from "svelte";
   import zoteroService from "./services/zotero.service.js";
+  import zoteroAuthService from "./services/zotero-auth.service.js";
+  import DeclassifyService from "./services/declassify.service.js";
 
   const currentUrl = window.location.href;
-  const isZotero = currentUrl.includes("zotero.org") && currentUrl.includes("/reader")
+  const isZotero =
+    currentUrl.includes("zotero.org") && currentUrl.includes("/reader");
 
-  export let url
+  export let url;
 
   let imageUrl;
   let isModalVisible = false;
   let isLoading = true;
-  let articleTitle = '';
+  let articleTitle = "";
   let results = [];
   let isEditing = false;
+  let isAuthorizing = false;
+  let token;
 
-  const unsubscribe = resultsStore.subscribe(value => {
+  const getToken = async () => {
+    token = await zoteroAuthService.getZoteroToken();
+  };
+  getToken();
+
+  const unsubscribe = resultsStore.subscribe((value) => {
     results = value;
   });
 
@@ -34,37 +44,101 @@
     imageUrl = chrome.runtime.getURL("images/QueroQuero-Fundo.png");
   });
 
-  async function salvarZotero() {
-    isLoading = true
-    if (isZotero) {
-      const itemKey = currentUrl.split("/items/")[1]?.split("/")[0];
-      const zoteroItem = await zoteroService.getItem(itemKey)
-      console.log('zoteroItem', zoteroItem)
-      await zoteroService.saveResults(zoteroItem.key, zoteroItem.version, results)
-    } else {
-      const zoteroResult = await zoteroService.saveToZotero(url)
-      console.log('zoteroResult', zoteroResult)
-      await zoteroService.saveResults(zoteroResult.item.key, zoteroResult.item.version, results)
-      window.location.href = zoteroResult.readerLink;
-    }
-    isLoading = false
-    // Salvar resultados
+  async function zoteroAuth() {
+    isAuthorizing = true;
+    token = await zoteroAuthService.startOAuthFlow();
+    zoteroAuthService.saveZoteroToken(token);
+    isAuthorizing = false;
   }
 
-  $: if(results.length) {
-    isLoading = false
+  async function salvarZotero() {
+    isLoading = true;
+    if (isZotero) {
+      const itemKey = currentUrl.split("/items/")[1]?.split("/")[0];
+      const zoteroItem = await zoteroService.getItem(
+        token.accessSecret,
+        token.userID,
+        itemKey,
+      );
+      await zoteroService.saveResults(
+        token.accessSecret,
+        token.userID,
+        zoteroItem.key,
+        zoteroItem.version,
+        results,
+      );
+    } else {
+      const zoteroResult = await zoteroService.saveToZotero(
+        token.accessSecret,
+        token.userID,
+        url,
+        articleTitle
+      );
+      await zoteroService.saveResults(
+        token.accessSecret,
+        token.userID,
+        zoteroResult.item.key,
+        zoteroResult.item.version,
+        results,
+      );
+      window.location.href = zoteroResult.readerLink;
+    }
+    isLoading = false;
   }
+
+
+  async function loadResults() {
+    let newResults = null;
+    newResults = await classifyDocument();
+    if (isZotero && token) {
+      const itemKey = currentUrl.split("/items/")[1]?.split("/")[0];
+      if (itemKey) {
+        const item = await zoteroService.getItem(
+          token.accessSecret,
+          token.userID,
+          itemKey,
+        );
+        articleTitle = item.data.title || '';
+        const tags = item.data.tags || [];
+        tags.forEach((tag) => {
+          newResults[tag.tag.split(":")[0]] = tag.tag.split(":")[1];
+        });
+      }
+    }
+    for (const resultKey in newResults) {
+      addResult(resultKey, newResults[resultKey]);
+    }
+  }
+
+  function addResult(name, result) {
+    resultsStore.update((items) => [...items, { name, result }]);
+  }
+
+  async function classifyDocument() {
+    const declassify = new DeclassifyService();
+    const { title, results: newResults } = await declassify.classify(url);
+    articleTitle = title;
+    resultsStore.update(() => []);
+    return newResults;
+  }
+
+  $: if (results.length) {
+    isLoading = false;
+  }
+  $: if (url) loadResults();
 </script>
 
 {#if url}
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
   <div id="declassify-wrapper">
     <!-- Popup button -->
     {#if !isModalVisible}
       <div on:click={showModal} id="modal-button">
         {#if imageUrl}
-          <img src={imageUrl} alt="Owl Image" id="modal-button-img"/>
+          <img src={imageUrl} alt="Owl Image" id="modal-button-img" />
         {/if}
       </div>
     {/if}
@@ -81,215 +155,310 @@
           <div id="pdf-classify-loader">
             <span></span>
           </div>
+        {:else if isAuthorizing}
+          <div id="pdf-classify-authorizing">
+            <span class="loader"></span>
+            <p>
+              Redirecionando para o Zotero para autorizar o aplicativo...<br />
+              Confirme o acesso e aguarde o retorno automático.
+            </p>
+          </div>
         {:else}
           <div id="pdf-classify-results">
             {#each results as result, i}
-              <p>
-                <strong>{result.name}</strong>:
+              <div class="input-wrapper">
                 {#if isEditing}
-                  <input type="text" bind:value={result.result}/>
+                  <label class="floating-label-input">
+                    <input
+                      type="text"
+                      bind:value={result.result}
+                      placeholder=" "
+                    />
+                    <span>{result.name}</span>
+                  </label>
                 {:else}
-                  {result.result}
+                  <p><strong>{result.name}</strong>: {result.result}</p>
                 {/if}
-              </p>
+              </div>
             {/each}
           </div>
         {/if}
-          <div class="buttons">
-            {#if isZotero}
-              {#if isEditing}
-                  <button
-                    disabled={isLoading}
-                    on:click={() => { isEditing = false; salvarZotero(); }}
-                  >
-                    Salvar
-                  </button>
-                  <button disabled={isLoading} class="cancel" on:click={() => { isEditing = false; }}>Cancelar</button>
-              {:else}
-                <button
-                  disabled={isLoading}
-                  on:click={() => { isEditing = true; }}
-                >
-                  Editar
-                </button>
-              {/if}
+        <div class="buttons">
+          {#if isZotero && token}
+            {#if isEditing}
+              <button
+                disabled={isLoading || isAuthorizing}
+                on:click={() => {
+                  isEditing = false;
+                  salvarZotero();
+                }}
+              >
+                Salvar
+              </button>
+              <button
+                disabled={isLoading || isAuthorizing}
+                class="cancel"
+                on:click={() => {
+                  isEditing = false;
+                }}>Cancelar</button
+              >
             {:else}
-              <button on:click={salvarZotero}>Salvar no Zotero</button>
+              <button
+                disabled={isLoading || isAuthorizing}
+                on:click={() => {
+                  isEditing = true;
+                }}
+              >
+                Editar
+              </button>
             {/if}
-          </div>
+          {:else if token}
+            <button disabled={isAuthorizing} on:click={salvarZotero}
+              >Salvar no Zotero</button
+            >
+          {:else}
+            <button disabled={isAuthorizing} on:click={zoteroAuth}
+              >Conectar no Zotero</button
+            >
+          {/if}
+        </div>
       </div>
     {/if}
-
   </div>
   <style>
-      #declassify-wrapper {
-          position: fixed;
-          right: 64px;
-          bottom: 0;
-          display: flex;
-          align-items: flex-end;
-          flex-direction: column;
-          color: black;
-      }
+    #declassify-wrapper {
+      position: fixed;
+      right: 64px;
+      bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      color: black;
+    }
 
-      #declassify-wrapper #modal-button-img {
-          height: 100%;
-      }
+    #declassify-wrapper #modal-button-img {
+      height: 100%;
+    }
 
-      #declassify-wrapper #modal-button {
-          width: 64px;
-          height: 64px;
-          border-radius: 100%;
-          cursor: pointer;
-          box-shadow: rgba(0, 0, 0, 0.25) 5px 10px 15px 5px;
-          overflow: hidden;
-          margin-bottom: 32px;
-      }
+    #declassify-wrapper #modal-button {
+      width: 64px;
+      height: 64px;
+      border-radius: 100%;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.25) 5px 10px 15px 5px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
 
-      #declassify-wrapper #modal-button:hover {
-          background-color: rgb(33, 36, 38);
-          transition: background-color .3s;
-      }
+    #declassify-wrapper #modal-button:hover {
+      background-color: rgb(33, 36, 38);
+      transition: background-color 0.3s;
+    }
 
-      #declassify-wrapper #modal-button > p {
-          margin: 0;
-          padding: 0;
-      }
+    #declassify-wrapper #modal-button > p {
+      margin: 0;
+      padding: 0;
+    }
 
-      #declassify-wrapper #modal {
-          font-family: sans-serif;
-          background-color: white;
-          box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
-          width: 230px;
-          border-radius: 8px 8px 0 0;
-          padding: 20px;
-      }
+    #declassify-wrapper #modal {
+      font-family: sans-serif;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+      width: 230px;
+      border-radius: 8px 8px 0 0;
+      padding: 20px;
+    }
 
-      #declassify-wrapper #modal-close-container {
-          display: flex;
-          justify-content: flex-end;
-          height: 0;
-      }
+    #declassify-wrapper #modal-close-container {
+      display: flex;
+      justify-content: flex-end;
+      height: 0;
+    }
 
-      #declassify-wrapper #modal-close-button {
-          cursor: pointer;
-      }
+    #declassify-wrapper #modal-close-button {
+      cursor: pointer;
+    }
 
-      #declassify-wrapper #modal #title {
-          text-align: center;
-          margin: 0;
-          margin-bottom: 8px;
-          font-family: Inter;
-          font-size: 28px;
-      }
+    #declassify-wrapper #modal #title {
+      text-align: center;
+      margin: 0;
+      margin-bottom: 8px;
+      font-family: Inter;
+      font-size: 28px;
+    }
 
-      #declassify-wrapper #modal #title > span:nth-child(1) {
-          font-weight: 200;
-          text-decoration: underline;
-      }
+    #declassify-wrapper #modal #title > span:nth-child(1) {
+      font-weight: 200;
+      text-decoration: underline;
+    }
 
-      #declassify-wrapper #modal #title > span:nth-child(2) {
-          font-weight: bold;
-      }
+    #declassify-wrapper #modal #title > span:nth-child(2) {
+      font-weight: bold;
+    }
 
-      #declassify-wrapper #pdf-classify-results {
-      }
+    #declassify-wrapper #pdf-classify-results {
+    }
 
-      #declassify-wrapper #pdf-classify-results p {
-          margin: 10px 0;
-      }
+    #declassify-wrapper #pdf-classify-results p {
+      margin: 10px 0;
+    }
 
-      #declassify-wrapper #document-title {
-          color: #1D7392;
-          font-size: 14pt;
-          text-decoration: underline;
-          margin-bottom: 20px;
-      }
+    #declassify-wrapper #document-title {
+      color: #1d7392;
+      font-size: 14pt;
+      text-decoration: underline;
+      margin-bottom: 20px;
+    }
 
-      #declassify-wrapper #pdf-classify-loader > span {
-          width: 48px;
-          height: 48px;
-          border: 5px solid #000;
-          border-bottom-color: transparent;
-          border-radius: 50%;
-          display: inline-block;
-          box-sizing: border-box;
-          animation: rotation 1s linear infinite;
-      }
+    #declassify-wrapper #pdf-classify-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 140px 0;
+    }
+    #declassify-wrapper #pdf-classify-authorizing {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 100px 0;
+      text-align: center;
+      color: #333;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+    }
 
-      @keyframes rotation {
-          0% {
-              transform: rotate(0deg);
-          }
-          100% {
-              transform: rotate(360deg);
-          }
-      }
+    #declassify-wrapper .loader {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #1d7392;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
 
-      #declassify-wrapper #pdf-classify-loader {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin:140px 0;
-      }
+    #declassify-wrapper #pdf-classify-loader > span {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #000;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: spin 1s linear infinite;
+    }
 
-      #declassify-wrapper input[type="text"] {
-          width: 100%;
-          padding: 6px 8px;
-          margin-top: 4px;
-          font-size: 14px;
-          border: 1px solid #ccc;
-          border-radius: 6px;
-          font-family: Inter, sans-serif;
-          box-sizing: border-box;
-          transition: border-color 0.2s, box-shadow 0.2s;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
+    }
+    #declassify-wrapper input[type="text"] {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: Inter, sans-serif;
+      box-sizing: border-box;
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
 
-      #declassify-wrapper input[type="text"]:focus {
-          outline: none;
-          border-color: #1D7392;
-          box-shadow: 0 0 0 2px rgba(29, 115, 146, 0.2);
-      }
+    #declassify-wrapper input[type="text"]:focus {
+      outline: none;
+      border-color: #1d7392;
+      box-shadow: 0 0 0 2px rgba(29, 115, 146, 0.2);
+    }
 
-      button:disabled{
-        background-color: gray !important;
-        color: #333 !important;
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-      #declassify-wrapper button {
-          width: 100%;
-          margin-top: 16px;
-          padding: 10px;
-          font-size: 14px;
-          font-weight: bold;
-          color: white;
-          background-color: #1D7392;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-          font-family: Inter, sans-serif;
-      }
+    button:disabled {
+      background-color: gray !important;
+      color: #333 !important;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    #declassify-wrapper button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: #1d7392;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-family: Inter, sans-serif;
+    }
 
-      #declassify-wrapper button:hover {
-          background-color: #155c75;
-      }
+    #declassify-wrapper button:hover {
+      background-color: #155c75;
+    }
 
-      #declassify-wrapper .buttons {
-          border-top: 1px solid black;
-          display: flex;
-          gap: 8px;
-          flex-direction: column;
-      }
+    #declassify-wrapper .buttons {
+      border-top: 1px solid black;
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+    }
 
-      #declassify-wrapper button.cancel {
-          background-color: #ccc;
-          color: #333;
-      }
+    #declassify-wrapper button.cancel {
+      background-color: #ccc;
+      color: #333;
+    }
 
-      #declassify-wrapper button.cancel:hover {
-          background-color: #aaa;
-      }
+    #declassify-wrapper button.cancel:hover {
+      background-color: #aaa;
+    }
+    .input-wrapper {
+      margin: 12px 0;
+    }
+
+    .floating-label-input {
+      position: relative;
+      display: block;
+    }
+
+    .floating-label-input input {
+      width: 100%;
+      padding: 12px 8px 6px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: Inter, sans-serif;
+      background: white;
+      box-sizing: border-box;
+      color: #333;
+    }
+
+    .floating-label-input input:focus {
+      border-color: #1d7392;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(29, 115, 146, 0.2);
+    }
+
+    .floating-label-input span {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #888;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background: white;
+      padding: 0 4px;
+    }
+
+    .floating-label-input input:focus + span,
+    .floating-label-input input:not(:placeholder-shown) + span {
+      top: 4px;
+      font-size: 11px;
+      color: #1d7392;
+    }
   </style>
 {/if}
