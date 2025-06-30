@@ -50,6 +50,8 @@
   }
 
   async function salvarZotero() {
+    resultsStore.set(formResults);
+    isEditing = false;
     isLoading = true;
     if (isZotero) {
       const itemKey = currentUrl.split("/items/")[1]?.split("/")[0];
@@ -81,6 +83,7 @@
       );
       window.location.href = zoteroResult.readerLink;
     }
+    await loadResults();
     isLoading = false;
   }
 
@@ -107,6 +110,7 @@
     for (const resultKey in newResults) {
       addResult(resultKey, newResults[resultKey]);
     }
+    isLoading = false;
   }
 
   function addResult(name, result) {
@@ -126,8 +130,11 @@
   onMount(() => {
     imageUrl = chrome.runtime.getURL("images/QueroQuero-Fundo.png");
   });
-  $: if (results.length) isLoading = false;
-  $: if (url) loadResults();
+  $: if (url) {
+    isLoading = true;
+    loadResults();
+    isEditing = false;
+  }
   $: if(isEditing === false) formResults =  JSON.parse(JSON.stringify(results))
 </script>
 
@@ -195,8 +202,6 @@
               <button
                 disabled={isLoading || isAuthorizing}
                 on:click={() => {
-                  resultsStore.set(formResults);
-                  isEditing = false;
                   salvarZotero();
                 }}
               >
