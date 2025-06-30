@@ -20,6 +20,9 @@
   let isEditing = false;
   let isAuthorizing = false;
   let token;
+  let formResults = [];
+
+  $: if(isEditing === false) formResults =  JSON.parse(JSON.stringify(results))
 
   const getToken = async () => {
     token = await zoteroAuthService.getZoteroToken();
@@ -51,6 +54,10 @@
     isAuthorizing = false;
   }
 
+  function deleteResult(index) {
+    formResults = formResults.filter((_, i) => i !== index);
+  }
+
   async function salvarZotero() {
     isLoading = true;
     if (isZotero) {
@@ -72,7 +79,7 @@
         token.accessSecret,
         token.userID,
         url,
-        articleTitle
+        articleTitle,
       );
       await zoteroService.saveResults(
         token.accessSecret,
@@ -86,7 +93,6 @@
     isLoading = false;
   }
 
-
   async function loadResults() {
     let newResults = null;
     newResults = await classifyDocument();
@@ -98,11 +104,13 @@
           token.userID,
           itemKey,
         );
-        articleTitle = item.data.title || '';
+        articleTitle = item.data.title || "";
         const tags = item.data.tags || [];
-        tags.forEach((tag) => {
-          newResults[tag.tag.split(":")[0]] = tag.tag.split(":")[1];
-        });
+        tags
+          .filter((tag) => tag.tag.match(/.+:.+/))
+          .forEach((tag) => {
+            newResults[tag.tag.split(":")[0]] = tag.tag.split(":")[1];
+          });
       }
     }
     for (const resultKey in newResults) {
@@ -165,7 +173,7 @@
           </div>
         {:else}
           <div id="pdf-classify-results">
-            {#each results as result, i}
+            {#each formResults as result, i}
               <div class="input-wrapper">
                 {#if isEditing}
                   <label class="floating-label-input">
@@ -175,6 +183,9 @@
                       placeholder=" "
                     />
                     <span>{result.name}</span>
+                    <button class="delete-btn" on:click={() => deleteResult(i)}
+                      >✖</button
+                    >
                   </label>
                 {:else}
                   <p><strong>{result.name}</strong>: {result.result}</p>
@@ -189,6 +200,7 @@
               <button
                 disabled={isLoading || isAuthorizing}
                 on:click={() => {
+                  resultsStore.set(formResults);
                   isEditing = false;
                   salvarZotero();
                 }}
@@ -380,7 +392,7 @@
       cursor: not-allowed;
       opacity: 0.7;
     }
-    #declassify-wrapper button {
+    #declassify-wrapper .buttons button {
       width: 100%;
       margin-top: 16px;
       padding: 10px;
@@ -395,7 +407,7 @@
       font-family: Inter, sans-serif;
     }
 
-    #declassify-wrapper button:hover {
+    #declassify-wrapper .buttons button:hover {
       background-color: #155c75;
     }
 
@@ -416,6 +428,10 @@
     }
     .input-wrapper {
       margin: 12px 0;
+    }
+    .input-wrapper  label{
+      display:flex;
+      flex-direction: row;
     }
 
     .floating-label-input {
@@ -459,6 +475,25 @@
       top: 4px;
       font-size: 11px;
       color: #1d7392;
+    }
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #d00;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+      margin: 4px;
+    }
+
+    .delete-btn:hover {
+      color: #a00;
     }
   </style>
 {/if}
