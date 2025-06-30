@@ -1,13 +1,14 @@
 <script>
   import Popup from './Popup.svelte';
   import { resultsStore } from './store/store.js';
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
 
-  let url
-  let modalHost;
-  let hosted = false;
-  let results = []
+  let url,
+    modalHost,
+    hosted = false,
+    results = []
+
   const unsubscribe = resultsStore.subscribe(value => {
     results = value;
   });
@@ -24,26 +25,24 @@
     return null;
   }
 
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === "pdfUrlDetected") {
-      if (!url) {
-        url = message.url;
+  onMount(() => {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (message.type === "pdfUrlDetected") {
+        if (!url) {
+          url = message.url;
+        }
+        if (modalHost && url && !hosted) {
+          hosted = true
+          const shadowRoot = modalHost.attachShadow({mode: 'open'});
+          new Popup({target: shadowRoot, props: {open: true, url}});
+        }
       }
-      if (modalHost && url && !hosted) {
-        hosted = true
-        const shadowRoot = modalHost.attachShadow({mode: 'open'});
-        new Popup({target: shadowRoot, props: {open: true, url}});
-      }
-      // Your logic here
-    }
-  });
-  window.addEventListener('pdfUrlDetected', async (event) => {
+    });
+    chrome.runtime.sendMessage({ type: "content-script-ready" });
+    url = getUrl();
   });
 
-  url = getUrl();
   onDestroy(() => unsubscribe());
-  
-  chrome.runtime.sendMessage({ type: "content-script-ready" });
 </script>
 
 {#if results}

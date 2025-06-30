@@ -12,28 +12,23 @@
 
   export let url;
 
-  let imageUrl;
-  let isModalVisible = false;
-  let isLoading = true;
-  let articleTitle = "";
-  let results = [];
-  let isEditing = false;
-  let isAuthorizing = false;
-  let token;
-  let formResults = [];
-
-  $: if(isEditing === false) formResults =  JSON.parse(JSON.stringify(results))
+  let imageUrl,
+  isModalVisible = false,
+  isLoading = true,
+  articleTitle = "",
+  results = [],
+  isEditing = false,
+  isAuthorizing = false,
+  token,
+  formResults = [];
 
   const getToken = async () => {
     token = await zoteroAuthService.getZoteroToken();
   };
-  getToken();
 
   const unsubscribe = resultsStore.subscribe((value) => {
     results = value;
   });
-
-  onDestroy(() => unsubscribe());
 
   function showModal() {
     isModalVisible = true;
@@ -42,10 +37,6 @@
   function hideModal() {
     isModalVisible = false;
   }
-
-  onMount(() => {
-    imageUrl = chrome.runtime.getURL("images/QueroQuero-Fundo.png");
-  });
 
   async function zoteroAuth() {
     isAuthorizing = true;
@@ -130,10 +121,14 @@
     return newResults;
   }
 
-  $: if (results.length) {
-    isLoading = false;
-  }
+  getToken();
+  onDestroy(() => unsubscribe());
+  onMount(() => {
+    imageUrl = chrome.runtime.getURL("images/QueroQuero-Fundo.png");
+  });
+  $: if (results.length) isLoading = false;
   $: if (url) loadResults();
+  $: if(isEditing === false) formResults =  JSON.parse(JSON.stringify(results))
 </script>
 
 {#if url}
