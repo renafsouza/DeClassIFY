@@ -5,6 +5,7 @@
   import zoteroService from "./services/zotero.service.js";
   import zoteroAuthService from "./services/zotero-auth.service.js";
   import DeclassifyService from "./services/declassify.service.js";
+    import { Plus, PlusCircle } from "lucide-svelte";
 
   const currentUrl = window.location.href;
   const isZotero =
@@ -20,7 +21,8 @@
   isEditing = false,
   isAuthorizing = false,
   token,
-  formResults = [];
+  formResults = [],
+  newResultLabel = "";
 
   const getToken = async () => {
     token = await zoteroAuthService.getZoteroToken();
@@ -65,7 +67,7 @@
         token.userID,
         zoteroItem.key,
         zoteroItem.version,
-        results,
+        results.map(result => ({...result, result: result.result || "None"})),
       );
     } else {
       const zoteroResult = await zoteroService.saveToZotero(
@@ -85,6 +87,12 @@
     }
     await loadResults();
     isLoading = false;
+  }
+
+  function addEmptyResult() {
+    if (!newResultLabel.trim()) return;
+    formResults = [...formResults, { name: newResultLabel.trim(), result: "" }];
+    newResultLabel = "";
   }
 
   async function loadResults() {
@@ -169,8 +177,8 @@
           <div id="pdf-classify-authorizing">
             <span class="loader"></span>
             <p>
-              Redirecionando para o Zotero para autorizar o aplicativo...<br />
-              Confirme o acesso e aguarde o retorno automático.
+              Redirecting to Zotero to authorize the application...<br />
+              Please confirm access and wait for the automatic return.
             </p>
           </div>
         {:else}
@@ -185,15 +193,28 @@
                       placeholder=" "
                     />
                     <span>{result.name}</span>
-                    <button class="delete-btn" on:click={() => deleteResult(i)}
-                      >✖</button
-                    >
+                    <button class="delete-btn" on:click={() => deleteResult(i)}>✖</button>
                   </label>
                 {:else}
                   <p><strong>{result.name}</strong>: {result.result}</p>
                 {/if}
               </div>
             {/each}
+            {#if isEditing}
+              <div class="input-wrapper ">
+                <label class="floating-label-input">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    bind:value={newResultLabel}
+                  />
+                  <span>Nova categoria</span>
+                  <button class="add-btn" on:click={addEmptyResult} aria-label="Adicionar categoria">
+                    <Plus size="16" color="#1d7392" />
+                  </button>
+                </label>
+              </div>
+            {/if}
           </div>
         {/if}
         <div class="buttons">
@@ -205,7 +226,7 @@
                   salvarZotero();
                 }}
               >
-                Salvar
+                Save
               </button>
               <button
                 disabled={isLoading || isAuthorizing}
@@ -221,16 +242,16 @@
                   isEditing = true;
                 }}
               >
-                Editar
+                Edit
               </button>
             {/if}
           {:else if token}
             <button disabled={isAuthorizing} on:click={salvarZotero}
-              >Salvar no Zotero</button
+              >Save to Zotero</button
             >
           {:else}
             <button disabled={isAuthorizing} on:click={zoteroAuth}
-              >Conectar no Zotero</button
+              >Connect to Zotero</button
             >
           {/if}
         </div>
@@ -476,6 +497,7 @@
       font-size: 11px;
       color: #1d7392;
     }
+
     .result-item {
       display: flex;
       justify-content: space-between;
@@ -494,6 +516,20 @@
 
     .delete-btn:hover {
       color: #a00;
+    }
+
+    .add-btn {
+      background: transparent;
+      border: none;
+      color: #1d7392;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+      margin-left: 4px;
+    }
+
+    .add-btn:hover {
+      color: #0c4f66;
     }
   </style>
 {/if}

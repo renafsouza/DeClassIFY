@@ -25,6 +25,7 @@
     "blueimp-md5": "^2.19.0",
     "crypto": "^1.0.1",
     "crypto-js": "^4.2.0",
+    "lucide-svelte": "^0.525.0",
     "oauth-1.0a": "^2.2.6",
     "sirv-cli": "^2.0.0",
     "spark-md5": "^3.0.2"
