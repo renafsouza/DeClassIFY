@@ -1,132 +1,160 @@
 <p align="center">
-  <img src="public/images/icon-128.png" />
+  <img src="public/images/icon-128.png" alt="DeClassIFY-Zotero Icon" />
 </p>
 
-<h1 align="center">DeClassIFY</h1>
+<h1 align="center">DeClassIFY-Zotero</h1>
 
 <p align="center">
-  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGo0YzFlY214OTg4dXA5azd4Nm1nb29yMzlhMTFlamhzNXRyb2xqaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0cJ8K2KxRpHaSYuvPp/giphy.gif" />
+  <a href="[https://github.com/seu-usuario/declassify-zotero/blob/main/LICENSE](https://github.com/seu-usuario/declassify-zotero/blob/main/LICENSE)">
+    <img src="[https://img.shields.io/badge/license-GPL--3.0-blue.svg](https://img.shields.io/badge/license-GPL--3.0-blue.svg)" alt="Licença GPL-3.0">
+  </a>
+  <img src="[https://img.shields.io/badge/version-1.0.0-brightgreen.svg](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)" alt="Versão">
+  <img src="[https://img.shields.io/badge/Svelte-4A4A55?style=flat&logo=svelte&logoColor=FF3E00](https://img.shields.io/badge/Svelte-4A4A55?style=flat&logo=svelte&logoColor=FF3E00)" alt="Feito com Svelte">
 </p>
 
-DeClassIFY is a Google Chrome extension designed to classify PDF documents, primarily academic papers, based on the nature of the research presented. It categorizes documents according to several aspects of the research methodology, providing insights into the type of study and approach taken.
+<p align="center">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGo0YzFlY214OTg4dXA5azd4Nm1nb29yMzlhMTFlamhzNXRyb2xqaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0cJ8K2KxRpHaSYuvPp/giphy.gif" alt="Demonstração da Extensão"/>
+</p>
 
-## How to Cite
+O **DeClassIFY-Zotero** é uma extensão de navegador projetada para automatizar a classificação de artigos científicos e integrá-los de forma transparente à sua biblioteca Zotero. A ferramenta analisa o conteúdo de documentos PDF abertos no navegador, sugere uma classificação com base em uma taxonomia de pesquisa e permite salvar o artigo e seus metadados diretamente na sua conta Zotero.
 
-To reference this work, please use the following citation:
+## Tabela de Conteúdos
 
-**APA Format:**
-Use code with caution.
+- [Sobre o Projeto](#sobre-o-projeto)
+  - [Funcionalidades Principais](#funcionalidades-principais)
+  - [Aspectos de Classificação](#aspectos-de-classificação)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Instalação](#instalação)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Passos para Instalação](#passos-para-instalação)
+- [Como Usar](#como-usar)
+- [Arquitetura do Sistema](#arquitetura-do-sistema)
+- [Como Citar](#como-citar)
+- [Licença](#licença)
+- [Agradecimentos](#agradecimentos)
 
-Osorio, A., Ataides, V., Ferreira Jr., P., & Cavalheiro, G. (2024). DeClassIFY: Uma ferramenta para auxílio à classificação de artigos científicos. In Anais do XXXII Workshop sobre Educação em Computação, (pp. 750-761). Porto Alegre: SBC. doi:10.5753/wei.2024.2987
+## Sobre o Projeto
 
-**BibTeX Format:**
-```bibtex
-@inproceedings{wei,
- author = {Alessander Osorio and Vitor Ataides and Paulo Ferreira Jr. and Gerson Cavalheiro},
- title = { DeClassIFY: Uma ferramenta para auxílio à classificação de artigos científicos},
- booktitle = {Anais do XXXII Workshop sobre Educação em Computação},
- location = {Brasília/DF},
- year = {2024},
- keywords = {},
- issn = {2595-6175},
- pages = {750--761},
- publisher = {SBC},
- address = {Porto Alegre, RS, Brasil},
- doi = {10.5753/wei.2024.2987},
- url = {https://sol.sbc.org.br/index.php/wei/article/view/29673}
-}
-```
+Este projeto visa solucionar a lacuna entre as ferramentas de gerenciamento de referências e os sistemas de classificação automática de documentos. Ao integrar o motor de classificação do **DeClassIFY** com a API do **Zotero**, a extensão otimiza o fluxo de trabalho de pesquisadores, reduzindo o esforço manual e aumentando a consistência na organização de referências bibliográficas.
 
-**Key Classification Aspects:**
+### Funcionalidades Principais
 
-- **Nature:** Whether the research is more "Pure" or "Applied".
-- **Method:** The methodological approach of the study, such as Analytical, Causal, etc.
-- **Validation Strategy:** The approach used to validate the research, e.g., Pilot, Case Study, etc.
-- **Data Nature:**  The type of data used, such as Cross-Sectional, Longitudinal, Qualitative or Quantitative.
-- **Environment:** The context in which the research was conducted, e.g., In Vitro, In Vivo, Real World, Simulated.
-- **Methodological:**  The type of methodology employed, including aspects like Control Model, Historical Analysis, or Modeling.
-- **Proof:** The type of logical proof employed, e.g., Abduction, Deduction or Induction.
-- **Purpose:** The main objective of the research, e.g. Behavioral or Design Science
-- **Secondary Proof:** The type of secondary proof employed, e.g. Proof or Rebuttal
-- **Validation Result:** The outcome of validation, e.g. Effectiveness, Cost Effectiveness, etc.
+* **Classificação Automática**: Analisa o texto de artigos em formato PDF e sugere categorias com base em uma taxonomia de pesquisa predefinida.
+* **Integração com Zotero**: Conecta-se à conta do usuário no Zotero de forma segura via OAuth 1.0a para manipular a biblioteca.
+* **Salvamento de Itens**: Cria novos itens na biblioteca Zotero a partir de um PDF visualizado ou atualiza itens existentes com as tags de classificação.
+* **Interface Não Intrusiva**: Exibe um painel de interação que pode ser aberto ou minimizado, renderizado de forma isolada para não interferir com o layout da página original.
+* **Edição Manual**: Permite que o usuário revise e altere os resultados da classificação automática antes de salvá-los.
 
-It runs automatically when you open a PDF in a new tab.
+### Aspectos de Classificação
 
-## Project Files
+A extensão categoriza os documentos com base nos seguintes aspectos metodológicos da pesquisa:
 
-Here's an overview of the project's file structure and the purpose of key files:
+-   **Natureza**: Se a pesquisa é mais "Pura" ou "Aplicada".
+-   **Método**: A abordagem metodológica do estudo (ex: Analítico, Causal).
+-   **Estratégia de Validação**: A abordagem usada para validar a pesquisa (ex: Piloto, Estudo de Caso).
+-   **Natureza dos Dados**: O tipo de dados usados (ex: Transversal, Qualitativo, Quantitativo).
+-   **Ambiente**: O contexto em que a pesquisa foi realizada (ex: *In Vitro*, Mundo Real, Simulado).
+-   **Prova**: O tipo de prova lógica empregada (ex: Abdução, Dedução, Indução).
+-   **Propósito**: O objetivo principal da pesquisa (ex: Comportamental, *Design Science*).
 
--   **`DeClassIFY-main/`**: The root directory containing all project files.
-    -   **`LICENSE`**: Contains the GNU General Public License v3.0 under which this project is released.
-    -   **`README.md`**: This file, providing an overview of the project, installation instructions, usage, and license information.
-    -   **`package-lock.json`**: A record of the exact versions of dependencies used in the project, automatically generated by npm.
-    -   **`package.json`**: Contains metadata about the project, including its name, version, and dependencies.
-    -   **`public/`**: Contains static assets for the extension:
-        -   **`global.css`**: Global CSS styles for the extension.
-        -   **`index.html`**: The main HTML file for the extension's popup.
-        -   **`manifest.json`**: The manifest file, defining the extension's configuration and capabilities.
-        -   **`images/`**: Contains image resources used in the extension (e.g., icons and the owl image).
-        -   **`build/`**: Contains the compiled Javascript and CSS bundle for the extension.
-        -   **`libs/`**:  Contains external javascript libraries used by the extension
-    -   **`src/`**: Contains the source code of the extension:
-        -   **`Popup.svelte`**: The main Svelte component that renders the extension's popup and handles interactions.
-        -   **`rules/rules.json`**: A JSON file containing the rules for classifying research papers based on keywords and patterns.
-        -   **`services/`**: Contains the logic for the extension
-            -   **`declassify.service.js`**: This file has the logic to identify the elements and classify the document.
+### Tecnologias Utilizadas
 
-## Installation
-Step-by-Step Guide to Build and Run the Project
-### Prerequisites
-Ensure you have Node.js and npm installed on your machine.
-You can check if they are installed by running the following commands in your terminal:
+A solução foi construída utilizando um conjunto de tecnologias modernas para desenvolvimento web e de extensões:
+
+* **Svelte**: Framework reativo utilizado para construir a interface do usuário.
+* **JavaScript**: Linguagem principal para a lógica da extensão.
+* **API do Zotero**: Interface utilizada para toda a comunicação e manipulação de dados na plataforma Zotero.
+* **PDF.js**: Biblioteca da Mozilla para processar e extrair o conteúdo textual de arquivos PDF.
+* **Manifesto V3**: A extensão segue o padrão mais recente para extensões do Chromium.
+* **Rollup.js**: Utilizado como empacotador de módulos para compilar os arquivos Svelte e JavaScript.
+
+## Instalação
+
+### Pré-requisitos
+
+Certifique-se de que você tem o Node.js e o npm instalados. Para verificar, execute no seu terminal:
 ```bash
 node -v
 npm -v
 ```
-If not installed, download and install Node.js from the official website: https://nodejs.org/.
+Caso não os tenha, faça o download e a instalação a partir do [site oficial do Node.js](https://nodejs.org/).
 
-### 1. Clone the Repository
+### Passos para Instalação
 
-Navigate to the directory where you want to clone the project and run:
-```bash
-git clone [repository_url]
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/seu-usuario/declassify-zotero.git](https://github.com/seu-usuario/declassify-zotero.git)
+    cd declassify-zotero
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
+
+3.  **Compile a extensão:**
+    * Para desenvolvimento (com recarregamento automático):
+        ```bash
+        npm run dev
+        ```
+    * Para produção (versão final para a loja):
+        ```bash
+        npm run build
+        ```
+    Isso gerará os arquivos compilados no diretório `public/build/`.
+
+4.  **Carregue a extensão no navegador:**
+    * Abra o seu navegador Chromium e navegue para `chrome://extensions/`.
+    * Ative o **Modo de desenvolvedor** (geralmente um seletor no canto superior direito).
+    * Clique em **Carregar sem compactação** e selecione o diretório `public/` do projeto.
+    * A extensão estará instalada e pronta para uso.
+
+## Como Usar
+
+Ao abrir um arquivo PDF em uma nova aba do navegador, um botão flutuante com o ícone de uma coruja aparecerá no canto inferior direito da tela. Clicar neste botão exibirá o painel da extensão com a classificação sugerida para o documento.
+
+A partir do painel, você pode:
+1.  Conectar sua conta Zotero (na primeira vez).
+2.  Visualizar a classificação automática.
+3.  Editar os resultados, se necessário.
+4.  Salvar o artigo e a classificação em sua biblioteca Zotero.
+
+## Arquitetura do Sistema
+
+A arquitetura da extensão foi projetada de forma modular para garantir segurança e manutenibilidade.
+
+* **Content Script**: Injetado nas páginas web, é responsável pela interface do usuário (construída com Svelte) e pela lógica de análise do PDF.
+* **Service Worker**: Atua em segundo plano, sendo responsável por detectar o carregamento de arquivos PDF (`webRequest`), atuar como um proxy para chamadas à API do Zotero (para contornar restrições de CORS) e gerenciar a autenticação.
+* **Comunicação**: A comunicação entre o `Content Script` e o `Service Worker` é feita de forma assíncrona por meio do sistema de troca de mensagens nativo das extensões (`chrome.runtime.sendMessage`).
+
+## Como Citar
+
+Para referenciar este trabalho em publicações acadêmicas, por favor, utilize a seguinte citação:
+
+**Formato APA:**
+Osorio, A., Ataides, V., Ferreira Jr., P., & Cavalheiro, G. (2024). DeClassIFY: Uma ferramenta para auxílio à classificação de artigos científicos. In *Anais do XXXII Workshop sobre Educação em Computação*, (pp. 750-761). Porto Alegre: SBC. doi:10.5753/wei.2024.2987
+
+**Formato BibTeX:**
+```bibtex
+@inproceedings{wei,
+  author = {Alessander Osorio and Vitor Ataides and Paulo Ferreira Jr. and Gerson Cavalheiro},
+  title = {DeClassIFY: Uma ferramenta para auxílio à classificação de artigos científicos},
+  booktitle = {Anais do XXXII Workshop sobre Educação em Computação},
+  location = {Brasília/DF},
+  year = {2024},
+  issn = {2595-6175},
+  pages = {750--761},
+  publisher = {SBC},
+  address = {Porto Alegre, RS, Brasil},
+  doi = {10.5753/wei.2024.2987},
+  url = {[https://sol.sbc.org.br/index.php/wei/article/view/29673](https://sol.sbc.org.br/index.php/wei/article/view/29673)}
+}
 ```
-### 2. Install Dependencies:
-Navigate to the project directory:
-```bash
-cd path/to/DeClassIFY
-```
-Install the project dependencies:
-```bash
-npm install
-```
-### 3. Build the Project:
 
-To build the project, run:
+## Licença
 
-```bash
-npm run build
-```
-This will generate the compiled files in the public/build/ folder.
+Este projeto é distribuído sob a licença **GPL-3.0**. Veja o arquivo `LICENSE` para mais detalhes.
 
-### 4. Run in Development Mode
-To run the project in development mode, where the code is automatically rebuilt whenever you make changes, execute:
-```bash
-npm run dev
-```
-### 5. Load the Extension in Chrome
-1. Open Chrome and go to chrome://extensions/.
+## Agradecimentos
 
-2. Enable Developer Mode (toggle in the top-right corner).
-
-3. Click Load unpacked and select the public folder of the project.
-
-4. The extension will be loaded and ready to use.
-## Usage
-
-When you open a PDF file in a new tab, a floating button (an owl icon) should appear on the bottom right corner of the window.
-Clicking on this button will display a popup with the PDF classifications. If no classification is detected, the system will attempt to classify the PDF file
-
-## License
-
-This project is licensed under the GPL-3.0 license.
+* Este trabalho foi desenvolvido com base na extensão DeClassIFY original, de autoria de **Alessander Osorio**.
