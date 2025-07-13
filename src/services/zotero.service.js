@@ -5,7 +5,7 @@ import backgroundService from "./background.service.js";
 class ZoteroService {
   async saveResults(apiKey, userId, itemKey, version, results) {
     const body = {
-      tags: results.map(it => ({ tag: `${it.name}:${it.result}` })),
+      tags: results.map(it => ({tag: `${it.name}:${it.result}`})),
     };
 
     return await axios.patch(
@@ -33,6 +33,7 @@ class ZoteroService {
       const formParams = this._buildUploadParams(itemResult.item.key, hash, filename, uint8Array.length);
       const uploadLinkJson = await this._requestUploadLink(apiKey, userId, itemResult.item.key, formParams);
       const newItemRequest = await this.getItem(apiKey, userId, itemResult.item.key);
+      console.log("newItemRequest", newItemRequest)
       if (!uploadLinkJson.exists) {
         const response = await backgroundService.sendUploadToBackground(
           apiKey,
@@ -46,6 +47,8 @@ class ZoteroService {
       }
       return itemResult;
     } catch (err) {
+      console.error("Error saving to Zotero:", err);
+      throw err;
     }
   }
 
@@ -103,7 +106,7 @@ class ZoteroService {
   }
 
   async _fetchPdfAsArrayBuffer(pdfUrl) {
-    return await backgroundService.fetchWithChunks(pdfUrl,  { method: "GET" });
+    return await backgroundService.fetchWithChunks(pdfUrl, {method: "GET"});
   }
 
   _buildUploadParams(itemKey, hash, filename, fileSize) {
@@ -117,6 +120,7 @@ class ZoteroService {
   }
 
   async _requestUploadLink(apiKey, userId, itemKey, formParams) {
+    console.log("formParams", formParams.toString())
     const res = await axios.post(
       `https://api.zotero.org/users/${userId}/items/${itemKey}/file?params=1`,
       formParams.toString(),
@@ -127,7 +131,7 @@ class ZoteroService {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       }
-    );
+    )
     return res.data;
   }
 };

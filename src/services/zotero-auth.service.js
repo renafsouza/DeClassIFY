@@ -47,7 +47,6 @@ class ZoteroAuthService {
   async startOAuthFlow() {
     try {
       const callbackUrl = await this.getRedirectUrl();
-      console.log("callbackUrl", callbackUrl)
       // 1. Get request token
       const request_data = {
         url: ZOTERO_OAUTH_REQUEST_URL,
