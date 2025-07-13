@@ -261,6 +261,7 @@
   <style>
     #declassify-wrapper {
       position: fixed;
+      z-index: 2147483647;
       right: 64px;
       bottom: 0;
       display: flex;

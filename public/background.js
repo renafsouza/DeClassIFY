@@ -32,6 +32,14 @@ function handleRuntimeMessage(message, sender, sendResponse) {
   }
 }
 
+chrome.runtime.onConnect.addListener((port) => {
+  port.onMessage.addListener((msg) => {
+    if (msg.type === "background-fetch-with-chunks") {
+      backgroundFetchChunked(msg.payload, port);
+    }
+  });
+});
+
 // Intercepts response headers to detect PDFs
 function handleHeadersReceived(details) {
   const contentType = details.responseHeaders.find(
@@ -167,3 +175,36 @@ function backgroundFetch(payload, sendResponse) {
       sendResponse({ error: err.message });
     });
 }
+
+function backgroundFetchChunked(payload, port) {
+  const { url, method, headers, body } = payload;
+  const CHUNK_SIZE = 128 * 1024; // 64KB
+
+  fetch(url, { method, headers, body })
+      .then(async (res) => {
+        if (!res.ok) {
+          port.postMessage({ type: "error", message: `HTTP error ${res.status}` });
+          return;
+        }
+
+          const buffer = await res.arrayBuffer();
+          const uint8Array = new Uint8Array(buffer);
+
+          const totalChunks = Math.ceil(uint8Array.length / CHUNK_SIZE);
+          port.postMessage({ type: "start", totalChunks, status: res.status });
+
+          for (let i = 0; i < totalChunks; i++) {
+            const start = i * CHUNK_SIZE;
+            const end = Math.min(start + CHUNK_SIZE, uint8Array.length);
+            const chunk = uint8Array.slice(start, end);
+            port.postMessage({ type: "chunk", index: i, data: Array.from(chunk) });
+          }
+
+          port.postMessage({ type: "end" });
+      })
+      .catch((err) => {
+        console.error("Background fetch error:", err);
+        port.postMessage({ type: "error", message: err.message });
+      });
+}
+

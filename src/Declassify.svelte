@@ -18,10 +18,6 @@
     if (currentUrl.endsWith(".pdf")) {
       return currentUrl;
     }
-    const plugin = document.querySelector('embed[type="application/pdf"]');
-    if (plugin && plugin.getAttribute("type") === "application/pdf") {
-      return currentUrl;
-    }
     return null;
   }
 
@@ -46,6 +42,6 @@
 </script>
 
 {#if results}
-    <div bind:this={modalHost} ></div>
+  <div bind:this={modalHost} ></div>
 {/if}
 

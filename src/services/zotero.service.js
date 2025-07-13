@@ -24,21 +24,15 @@ class ZoteroService {
   async saveToZotero(apiKey, userId, pdfUrl, articleTitle = "", parentItemKey = false) {
     try {
       const filename = articleTitle || this._extractFilename(pdfUrl);
-      console.log("Saving to Zotero with filename:", filename);
       const metadata = this._buildMetadata(filename, parentItemKey);
-console.log("Metadata for Zotero item:", metadata);
 
       const itemResult = await this._createItem(apiKey, userId, metadata);
-console.log("Created item in Zotero:", itemResult);
       const arrayBuffer = await this._fetchPdfAsArrayBuffer(pdfUrl);
       const uint8Array = new Uint8Array(arrayBuffer);
       const hash = SparkMD5.ArrayBuffer.hash(arrayBuffer);
-console.log("PDF hash:", hash);
       const formParams = this._buildUploadParams(itemResult.item.key, hash, filename, uint8Array.length);
       const uploadLinkJson = await this._requestUploadLink(apiKey, userId, itemResult.item.key, formParams);
-console.log("Upload link JSON:", uploadLinkJson);
       if (!uploadLinkJson.exists) {
-        console.log("Uploading file to Zotero...");
         const response = await backgroundService.sendUploadToBackground(
           apiKey,
           userId,
@@ -47,13 +41,10 @@ console.log("Upload link JSON:", uploadLinkJson);
           uint8Array,
           itemResult.item.key
         );
-        console.log("File upload response:", response);
         itemResult.item.version++;
       }
-      console.log("Item saved to Zotero:", itemResult.item);
       return itemResult;
     } catch (err) {
-      console.error("saveToZotero error:", err);
     }
   }
 
@@ -93,7 +84,6 @@ console.log("Upload link JSON:", uploadLinkJson);
   }
 
   async _createItem(apiKey, userId, metadata) {
-    console.log("metadata:", metadata);
     const res = await axios.post(
       `https://api.zotero.org/users/${userId}/items`,
       metadata,
@@ -104,7 +94,6 @@ console.log("Upload link JSON:", uploadLinkJson);
         },
       }
     );
-    console.log("Zotero item creation response:", res.data);
     const result = res.data.successful[0];
     return {
       item: result.data,

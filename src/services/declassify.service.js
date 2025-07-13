@@ -1,4 +1,5 @@
 import newRules from '../rules/rules.json'
+import backgroundService from "./background.service.js";
 
 function getMaxLoc(obj) {
     let keyWithMaxValue = null;
@@ -23,8 +24,15 @@ class DeclassifyService {
     constructor() {
     }
 
+    async loadPdf(url) {
+        const data = await backgroundService.fetchWithChunks(
+            url, { method: "GET"}
+        );
+        return pdfjsLib.getDocument({ data }).promise;
+    }
+
     async classify(url) {
-      const pdf = await pdfjsLib.getDocument(url).promise;
+      const pdf = await this.loadPdf(url);
       const title = await this.getDocumentTitle(url, pdf)
       const classificationsOccurances = await this.countClassificationsOccurances(pdf);
       const results = this.generateResults(classificationsOccurances);
@@ -48,7 +56,6 @@ class DeclassifyService {
         }
         return occurrences;
     }
-
     async countClassificationsOccurances(pdf) {
         const classifications = {}
         for (const classification in newRules) {

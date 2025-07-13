@@ -60,7 +60,7 @@ class ZoteroAuthService {
       headers: { Authorization: headers.Authorization },
     });
 
-    const data = new URLSearchParams(res.text);
+    const data = new URLSearchParams(res.data);
     const oauth_token = data.get("oauth_token");
     const oauth_token_secret = data.get("oauth_token_secret");
 
@@ -86,7 +86,7 @@ class ZoteroAuthService {
       method: "POST",
       headers: { Authorization: headers.Authorization },
     });
-    const data = new URLSearchParams(res.text);
+    const data = new URLSearchParams(res.data);
     return {
       accessToken: data.get("oauth_token"),
       accessSecret: data.get("oauth_token_secret"),
