@@ -168,7 +168,7 @@ function backgroundFetch(payload, sendResponse) {
   fetch(url, { method, headers, body })
     .then(async (res) => {
       const text = await res.text();
-      sendResponse({ status: res.status, text });
+      sendResponse({ status: res.status, data: text });
     })
     .catch((err) => {
       console.error("Background fetch error:", err);

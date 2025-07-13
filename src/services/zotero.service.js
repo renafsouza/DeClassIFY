@@ -32,6 +32,7 @@ class ZoteroService {
       const hash = SparkMD5.ArrayBuffer.hash(arrayBuffer);
       const formParams = this._buildUploadParams(itemResult.item.key, hash, filename, uint8Array.length);
       const uploadLinkJson = await this._requestUploadLink(apiKey, userId, itemResult.item.key, formParams);
+      const newItemRequest = await this.getItem(apiKey, userId, itemResult.item.key);
       if (!uploadLinkJson.exists) {
         const response = await backgroundService.sendUploadToBackground(
           apiKey,
@@ -102,8 +103,7 @@ class ZoteroService {
   }
 
   async _fetchPdfAsArrayBuffer(pdfUrl) {
-    const res = await axios.get(pdfUrl, { responseType: "arraybuffer" });
-    return res.data;
+    return await backgroundService.fetchWithChunks(pdfUrl,  { method: "GET" });
   }
 
   _buildUploadParams(itemKey, hash, filename, fileSize) {
