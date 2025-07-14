@@ -87,7 +87,7 @@
 <main>
   {#if isReady}
     <div class="header">
-      <h1 class="title">My Extension</h1>
+      <div id="title"><span>De</span><span>ClassIFY</span></div>
     </div>
 
     <div class="section">
@@ -157,11 +157,21 @@
         border-bottom: 1px solid #e5e7eb;
         text-align: center;
     }
-    .title {
-        font-size: 1.125rem;
-        font-weight: 700;
-        color: #111827;
+    #title {
+        text-align: center;
         margin: 0;
+        margin-bottom: 12px;
+        font-family: Inter, sans-serif;
+        font-size: 28px;
+    }
+
+    #title > span:nth-child(1) {
+        font-weight: 200;
+        text-decoration: underline;
+    }
+
+    #title > span:nth-child(2) {
+        font-weight: bold;
     }
     .section {
         padding: 1rem;
