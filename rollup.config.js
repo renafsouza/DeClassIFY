@@ -1,83 +1,54 @@
-import { spawn } from 'child_process';
+// rollup.config.js
 import svelte from 'rollup-plugin-svelte';
-import commonjs from '@rollup/plugin-commonjs';
-import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
-import livereload from 'rollup-plugin-livereload';
+import commonjs from '@rollup/plugin-commonjs';
 import css from 'rollup-plugin-css-only';
+import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import nodePolyfills from 'rollup-plugin-node-polyfills';
-
 const production = !process.env.ROLLUP_WATCH;
 
-function serve() {
-	let server;
+/* ------- shared plugin list ------- */
+const basePlugins = [
+	json(),
+	svelte({ compilerOptions: { dev: !production } }),
+	css({ output: 'bundle.css' }),
+	resolve({ browser: true, dedupe: ['svelte'], exportConditions: ['svelte'], preferBuiltins: false }),
+	commonjs(),
+	nodePolyfills(),
+	production && terser()
+];
 
-	function toExit() {
-		if (server) server.kill(0);
-	}
-
-	return {
-		writeBundle() {
-			if (server) return;
-			server = spawn('npm', ['run', 'start', '--', '--dev'], {
-				stdio: ['ignore', 'inherit', 'inherit'],
-				shell: true
-			});
-
-			process.on('SIGTERM', toExit);
-			process.on('exit', toExit);
-		}
-	};
-}
-
-export default {
+/* -------------------------------------------------
+   1) CONTENT‑SCRIPT BUILD  (single file, no imports)
+--------------------------------------------------*/
+const contentBuild = {
 	input: 'src/main.js',
 	output: {
-		sourcemap: true,
+		file: 'public/build/main.js',
 		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
+		sourcemap: !production
 	},
-	plugins: [
-		json(), // Enable JSON imports
-		svelte({
-			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
-			}
-		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
-
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-			exportConditions: ['svelte'],
-			preferBuiltins: false, // important
-		}),
-		commonjs(),
-		nodePolyfills(),  // add this
-
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
-
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
-	],
-	watch: {
-		clearScreen: false
-	}
+	plugins: basePlugins,
+	watch: { clearScreen: false }
 };
+
+/* -------------------------------------------------
+   2) EXTENSION PAGES / MULTI‑PAGE BUILD (ESM)
+--------------------------------------------------*/
+const pagesBuild = {
+	input: {
+		'extension-popup': 'src/extension-popup.js',
+	},
+	output: {
+		dir: 'public/build',
+		format: 'esm',
+		sourcemap: !production,
+		entryFileNames: '[name].js',
+		chunkFileNames: 'chunks/[name]-[hash].js'
+	},
+	plugins: basePlugins,
+	watch: { clearScreen: false }
+};
+
+export default [contentBuild, pagesBuild];

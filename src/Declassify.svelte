@@ -4,14 +4,10 @@
   import { onDestroy, onMount } from 'svelte';
 
 
+
   let url,
     modalHost,
-    hosted = false,
-    results = []
-
-  const unsubscribe = resultsStore.subscribe(value => {
-    results = value;
-  });
+    hosted = false
 
   function getUrl() {
     const currentUrl = window.location.href;
@@ -34,14 +30,12 @@
         }
       }
     });
-    chrome.runtime.sendMessage({ type: "content-script-ready" });
     url = getUrl();
+    chrome.runtime.sendMessage({ type: "content-script-ready" });
   });
 
   onDestroy(() => unsubscribe());
 </script>
 
-{#if results}
-  <div bind:this={modalHost} ></div>
-{/if}
+<div bind:this={modalHost} ></div>
 

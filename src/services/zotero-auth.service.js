@@ -93,19 +93,34 @@ class ZoteroAuthService {
       accessToken: data.get("oauth_token"),
       accessSecret: data.get("oauth_token_secret"),
       userID: data.get("userID"),
+      username: data.get("username")
     };
   }
 
-  async saveZoteroToken(token) {
+  async unsaveZoteroUser() {
     return new Promise((resolve) => {
-      chrome.storage.local.set({zoteroToken: token}, resolve);
+      chrome.storage.local.set({zoteroUser: null}, resolve);
+    });
+  }
+
+  async saveZoteroUser(zoteroUser) {
+    return new Promise((resolve) => {
+      chrome.storage.local.set({zoteroUser: zoteroUser}, resolve);
     });
   }
 
   async getZoteroToken() {
     return new Promise((resolve) => {
-      chrome.storage.local.get(["zoteroToken"], async (result) => {
-        resolve(result.zoteroToken || null);
+      chrome.storage.local.get(["zoteroUser"], async (result) => {
+        resolve(result.zoteroUser || null);
+      });
+    });
+  }
+
+  async getZoteroUser() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(["zoteroUser"], async (result) => {
+        resolve(result.zoteroUser || null);
       });
     });
   }

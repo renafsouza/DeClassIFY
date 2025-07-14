@@ -22,10 +22,16 @@
     token,
     formResults = [],
     newResultLabel = "",
-    errorMessage = "";
+    errorMessage = "",
+    ignoredDomains = [],
+    isDomainIgnored = true;
+
+  function updateIsDomainIgnored() {
+    isDomainIgnored = window.location.hostname && ignoredDomains.includes(window.location.hostname);
+  }
 
   const getToken = async () => {
-    token = await zoteroAuthService.getZoteroToken();
+    token = await zoteroAuthService.getZoteroUser();
   };
 
   const unsubscribe = resultsStore.subscribe((value) => {
@@ -45,11 +51,10 @@
     try {
       errorMessage = "";
       isAuthorizing = true;
-      token = await zoteroAuthService.startOAuthFlow();
-      await zoteroAuthService.saveZoteroToken(token);
+      const zoteroUser = await zoteroAuthService.startOAuthFlow();
+      await zoteroAuthService.saveZoteroUser(zoteroUser);
       isAuthorizing = false;
     } catch (err) {
-      console.log("err", err);
       errorMessage = "Failed to authorize with Zotero.";
       isAuthorizing = false;
     }
@@ -165,10 +170,25 @@
     return newResults;
   }
 
-  getToken();
   onDestroy(() => unsubscribe());
   onMount(() => {
+    getToken();
     imageUrl = chrome.runtime.getURL("images/QueroQuero-Fundo.png");
+    chrome.storage.local.get(['ignoredDomains'], (result) => {
+      ignoredDomains = result.ignoredDomains || [];
+      updateIsDomainIgnored();
+    });
+
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+      if (changes.ignoredDomains) {
+        ignoredDomains = changes.ignoredDomains.newValue || [];
+        updateIsDomainIgnored();
+      }
+      // If login info changes, re-fetch the token to update the component's state
+      if (changes.zoteroUser) {
+        getToken();
+      }
+    });
   });
 
   $: if (url) {
@@ -181,7 +201,7 @@
 
 </script>
 
-{#if url}
+{#if url && !isDomainIgnored}
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet"

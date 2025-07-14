@@ -33,7 +33,6 @@ class ZoteroService {
       const formParams = this._buildUploadParams(itemResult.item.key, hash, filename, uint8Array.length);
       const uploadLinkJson = await this._requestUploadLink(apiKey, userId, itemResult.item.key, formParams);
       const newItemRequest = await this.getItem(apiKey, userId, itemResult.item.key);
-      console.log("newItemRequest", newItemRequest)
       if (!uploadLinkJson.exists) {
         const response = await backgroundService.sendUploadToBackground(
           apiKey,
@@ -120,7 +119,6 @@ class ZoteroService {
   }
 
   async _requestUploadLink(apiKey, userId, itemKey, formParams) {
-    console.log("formParams", formParams.toString())
     const res = await axios.post(
       `https://api.zotero.org/users/${userId}/items/${itemKey}/file?params=1`,
       formParams.toString(),
