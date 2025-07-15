@@ -81,7 +81,6 @@
         token.accessSecret,
         token.userID,
         zoteroItem.key,
-        zoteroItem.version,
         results.map((result) => ({...result, result: result.result || "None"}))
       );
     } else {
@@ -96,7 +95,6 @@
           token.accessSecret,
           token.userID,
           zoteroResult.item.key,
-          zoteroResult.item.version,
           results
         );
         window.location.href = zoteroResult.readerLink;

@@ -3,7 +3,8 @@ import SparkMD5 from "spark-md5";
 import backgroundService from "./background.service.js";
 
 class ZoteroService {
-  async saveResults(apiKey, userId, itemKey, version, results) {
+  async saveResults(apiKey, userId, itemKey, results) {
+    const updatedItem = await this.getItem(apiKey, userId, itemKey);
     const body = {
       tags: results.map(it => ({tag: `${it.name}:${it.result}`})),
     };
@@ -15,7 +16,7 @@ class ZoteroService {
         headers: {
           "Zotero-API-Key": apiKey,
           "Content-Type": "application/json",
-          "If-Unmodified-Since-Version": version,
+          "If-Unmodified-Since-Version": updatedItem.version,
         },
       }
     );
@@ -32,7 +33,7 @@ class ZoteroService {
       const hash = SparkMD5.ArrayBuffer.hash(arrayBuffer);
       const formParams = this._buildUploadParams(itemResult.item.key, hash, filename, uint8Array.length);
       const uploadLinkJson = await this._requestUploadLink(apiKey, userId, itemResult.item.key, formParams);
-      const newItemRequest = await this.getItem(apiKey, userId, itemResult.item.key);
+
       if (!uploadLinkJson.exists) {
         const response = await backgroundService.sendUploadToBackground(
           apiKey,
@@ -42,7 +43,6 @@ class ZoteroService {
           uint8Array,
           itemResult.item.key
         );
-        itemResult.item.version++;
       }
       return itemResult;
     } catch (err) {
